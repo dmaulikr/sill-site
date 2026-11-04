@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>12 daily standup examples for developers (copy and paste) — Sill</title>
+<meta name="description" content="Real-looking daily standup updates for software developers: feature work, bugs, on-call, reviews, release day, Mondays and being blocked. Copy the shape, keep it short.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/standup-examples.html">
+<meta property="og:title" content="12 daily standup examples for developers">
+<meta property="og:description" content="Feature work, bugs, on-call, reviews, release day, Mondays and being blocked. Copy the shape, keep it short.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Standups</div>
+<h1>12 standup examples for developers.</h1>
+<p>A good standup takes 30 seconds to read and answers three questions: what moved, what's next, and what's stuck. Here are twelve, one for each kind of day. Copy the shape, not the words.</p>
+
+<h2>The rules behind all twelve</h2>
+<ul>
+  <li><strong>Outcomes, not activity.</strong> "Search returns results in under 200 ms", not "worked on search".</li>
+  <li><strong>Three lines per section, at most.</strong> Anything longer belongs in a ticket.</li>
+  <li><strong>Blockers name a person or team, and a date.</strong> "Waiting on Payments for the refund API (asked Tue and Thu)" gets a reply. "Blocked on backend" doesn't.</li>
+  <li><strong>Plain "•" bullets</strong> paste cleanly into Slack, Teams, Jira and email.</li>
+</ul>
+
+<h2>1. Feature work, going well</h2>
+<div class="standup">Yesterday:
+• Saved filters: create and rename work end to end (PR up)
+• Wrote the migration for existing users' filters
+
+Today:
+• Address review comments, then delete and reorder
+
+Blockers:
+• None</div>
+
+<h2>2. Chasing a bug</h2>
+<div class="standup">Yesterday:
+• Reproduced the duplicate-order bug: two taps within 300 ms on slow networks
+• Ruled out the payment SDK; it's our retry logic
+
+Today:
+• Fix with an idempotency key, add a test for the double tap
+
+Blockers:
+• None, but I'll need a QA pass on Android before Thursday</div>
+
+<h2>3. Blocked by another team</h2>
+<div class="standup">Yesterday:
+• Refund screen done against mock data
+• Followed up with Payments on the refund API contract
+
+Today:
+• Error states and empty states while I wait
+
+Blockers:
+• Refund API contract — waiting on Payments <span class="receipt">(day 6, asked 3×)</span>. Can someone help me find the right owner?</div>
+
+<h2>4. A day of meetings</h2>
+<div class="standup">Yesterday:
+• Planning for Q1: our team owns search and saved filters
+• Design review for onboarding; two changes agreed, notes in the doc
+
+Today:
+• Back to saved filters: delete and reorder
+
+Blockers:
+• None</div>
+
+<h2>5. Mostly code review</h2>
+<div class="standup">Yesterday:
+• Reviewed 5 PRs, including the auth refactor (approved with two fixes)
+• Paired with Sam on the flaky checkout tests; now passing 50/50 runs
+
+Today:
+• My own PR for search ranking
+
+Blockers:
+• None</div>
+
+<h2>6. On-call</h2>
+<div class="standup">Yesterday:
+• On call: 2 pages. Disk alert on worker-3 (cleaned up, ticket for log rotation); login 500s for 6 minutes (bad deploy, rolled back)
+• Postmortem draft for the login incident
+
+Today:
+• Log rotation fix, then hand over on-call
+
+Blockers:
+• None</div>
+
+<h2>7. Release day</h2>
+<div class="standup">Yesterday:
+• 2.4 release candidate passed QA; release notes written
+• Fixed the last crash on iOS 17 devices
+
+Today:
+• Ship 2.4 at 2 pm, watch crash reports until end of day
+
+Blockers:
+• Need an approver for the App Store submission</div>
+
+<h2>8. Monday</h2>
+<div class="standup">Friday:
+• Merged saved filters; behind a flag for now
+• Started the search ranking spike
+
+Today:
+• Finish the ranking spike and write up options by Wednesday
+
+Blockers:
+• None</div>
+
+<h2>9. Back from time off</h2>
+<div class="standup">Last week:
+• Out of office
+
+Today:
+• Catching up on the 12 PRs and the search thread
+• Picking up saved filters from Priya at 11
+
+Blockers:
+• Need access to the new staging cluster</div>
+
+<h2>10. Research or a spike</h2>
+<div class="standup">Yesterday:
+• Compared 3 approaches for offline sync; CRDTs are overkill for us
+• Prototyped last-write-wins with a conflict banner (2 hours, works)
+
+Today:
+• Write the one-page recommendation for Thursday's review
+
+Blockers:
+• None</div>
+
+<h2>11. A slow day</h2>
+<div class="standup">Yesterday:
+• Lost the morning to a broken local environment (fixed: wrong Node version, now pinned)
+• Small progress on the search PR
+
+Today:
+• Finish the search PR
+
+Blockers:
+• None</div>
+<p class="muted">Slow days happen. Say so in one line and move on; nobody needs a cover story.</p>
+
+<h2>12. Leading a small team</h2>
+<div class="standup">Yesterday:
+• Unblocked Sam on the auth refactor (decision: keep sessions server-side)
+• Hiring: 2 interviews, one strong yes
+
+Today:
+• Sprint review prep; 1:1s with Priya and Jo
+
+Blockers:
+• Waiting on Infra for the staging budget <span class="receipt">(day 3, asked 2×)</span></div>
+
+<hr>
+<h2>Or let your standup write itself</h2>
+<p><strong>Sill</strong> writes Yesterday, Today and Blockers from the work you already do: your git commits on Mac, the tasks you finish and the follow-ups you log. It keeps receipts on what you're waiting on, like the <span class="receipt">day 6, asked 3×</span> above, and copies the whole thing in one tap from your Mac's menu bar or your iPhone. No account, no server, no analytics.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=site-examples&amp;mt=8">Get Sill free on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. Rather do it by hand? <a href="git-standup.html">Pull yesterday's commits with one git command</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>

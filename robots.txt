@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dmaulikr.github.io/sill-site/sitemap.xml

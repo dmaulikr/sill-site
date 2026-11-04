@@ -1,0 +1,21 @@
+# Sill
+
+> Sill is a native app for software developers on Mac, iPhone, iPad and Apple Watch that writes their daily standup from the work they already do, and keeps receipts on everything they're waiting on from other people.
+
+- What it does: on the Mac, Sill reads local git history (commit messages and times only, never source code) and combines it with the tasks you finish and the follow-ups you log, to write Yesterday / Today / Blockers. One tap copies it for Slack, Teams, Jira or email.
+- Receipts: for each blocker (an API, a design, a review, access) Sill shows how long you've waited and how many times you followed up, e.g. "day 6, asked 3x", and includes that in the standup.
+- Worklog: a timeline of commits, finished tasks, notes, follow-ups and focus sessions; copy a worklog for any date range.
+- Privacy: no account, no server, no analytics. The App Store privacy label is "Data Not Collected". Data stays on device and in the user's private iCloud.
+- Platforms: one universal purchase for macOS (window + menu bar), iOS, iPadOS and watchOS. Free on the App Store, with an optional Pro upgrade planned.
+- App Store: https://apps.apple.com/app/id6823163147
+
+## Guides
+
+- [Write your standup from git log, in one command](https://dmaulikr.github.io/sill-site/git-standup.html)
+- [12 daily standup examples for developers](https://dmaulikr.github.io/sill-site/standup-examples.html)
+- [How to follow up when another team is blocking you](https://dmaulikr.github.io/sill-site/follow-up-templates.html)
+
+## Help
+
+- [Support](https://dmaulikr.github.io/sill-site/support.html)
+- [Privacy policy](https://dmaulikr.github.io/sill-site/privacy.html)

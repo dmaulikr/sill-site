@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Write your standup from git log, in one command — Sill</title>
+<meta name="description" content="One git log command lists everything you committed yesterday, across every repo. Copy it, turn it into a standup, and see where git log falls short.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/git-standup.html">
+<meta property="og:title" content="Write your standup from git log, in one command">
+<meta property="og:description" content="One git log command lists everything you committed yesterday, across every repo.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Standups</div>
+<h1>Your standup is already in git log.</h1>
+<p>It's 9:58 and standup is at 10. You did real work yesterday, but you can't remember it. Your commits can. One command lists everything you committed yesterday, so you can read your standup instead of reconstructing it.</p>
+
+<h2>Yesterday, in one repo</h2>
+<div class="standup">git log --all --since=yesterday.midnight --until=midnight \
+  --author="$(git config user.email)" --no-merges --format='* %s'</div>
+<ul>
+  <li><code>--all</code> includes branches you aren't on right now.</li>
+  <li><code>--author</code> keeps it to your commits. If nothing shows up, compare <code>git config user.email</code> with <code>git log -1 --format=%ae</code>: they have to match.</li>
+  <li><code>--no-merges</code> hides "Merge branch 'main'" noise.</li>
+</ul>
+<p><strong>On a Monday</strong>, swap the dates for <code>--since="last friday"</code> and drop <code>--until</code>.</p>
+
+<h2>Every repo in your code folder</h2>
+<p>Most of us touch more than one repository a day. This loops over every repo in a folder and labels each line with the repo it came from:</p>
+<div class="standup">for d in ~/code/*/.git; do
+  r=${d%/.git}
+  git -C "$r" log --all --since=yesterday.midnight --until=midnight \
+    --author="$(git config user.email)" --no-merges \
+    --format="* %s ($(basename "$r"))"
+done</div>
+<p>Change <code>~/code</code> to wherever you keep your projects.</p>
+
+<h2>Make it a git command</h2>
+<p>Save it once as an alias, then type <code>git standup</code> every morning, or <code>git standup "last friday"</code> on Mondays:</p>
+<div class="standup">git config --global alias.standup '!git log --all --since="${1:-yesterday.midnight}" --author="$(git config user.email)" --no-merges --format="* %s" #'</div>
+
+<h2>From commit messages to a standup</h2>
+<p>Commit subjects are written for code review, not for your team. Before you paste:</p>
+<ul>
+  <li><strong>Lead with the outcome.</strong> "Checkout now retries failed payments", not "add retry wrapper".</li>
+  <li><strong>Merge the small ones.</strong> Five "fix test" commits are one line: "Fixed the flaky checkout tests."</li>
+  <li><strong>Say what's next.</strong> Today is a plan, not a commit, so write it yourself.</li>
+  <li><strong>Name your blockers.</strong> Who you're waiting on, since when, and how many times you've asked.</li>
+</ul>
+<p>Need a shape to copy? See <a href="standup-examples.html">12 standup examples for developers</a>.</p>
+
+<h2>Where git log falls short</h2>
+<p>A lot of real work never becomes a commit: the review you gave, the bug you reproduced, the hour spent chasing another team for an API. It also only sees the repos on the machine you're sitting at, and it can't tell you what you're blocked on.</p>
+<p><strong>Sill</strong> fills those gaps. On your Mac it reads your local git history (never your code), adds the tasks you finished and the follow-ups you logged, and writes Yesterday, Today and Blockers for you. It keeps receipts on everything you're waiting on, like "day 6, asked 3×", and syncs to your iPhone, iPad and Apple Watch through your own iCloud. No account, no server, no analytics.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=site-git&amp;mt=8">Get Sill free on the App Store</a> — for Mac, iPhone, iPad and Apple Watch.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>
