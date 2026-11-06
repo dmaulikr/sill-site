@@ -30,7 +30,7 @@
 <ul>
   <li><strong>Outcomes, not activity.</strong> "Search returns results in under 200 ms", not "worked on search".</li>
   <li><strong>Three lines per section, at most.</strong> Anything longer belongs in a ticket.</li>
-  <li><strong>Blockers name a person or team, and a date.</strong> "Waiting on Payments for the refund API (asked Tue and Thu)" gets a reply. "Blocked on backend" doesn't.</li>
+  <li><strong>Blockers name a person or team, and a date.</strong> "Waiting on Platform for the search API (asked Tue and Thu)" gets a reply. "Blocked on backend" doesn't.</li>
   <li><strong>Plain "•" bullets</strong> paste cleanly into Slack, Teams, Jira and email.</li>
 </ul>
 
@@ -47,8 +47,8 @@ Blockers:
 
 <h2>2. Chasing a bug</h2>
 <div class="standup">Yesterday:
-• Reproduced the duplicate-order bug: two taps within 300 ms on slow networks
-• Ruled out the payment SDK; it's our retry logic
+• Reproduced the duplicate-save bug: two taps within 300 ms on slow networks
+• Ruled out the network SDK; it's our retry logic
 
 Today:
 • Fix with an idempotency key, add a test for the double tap
@@ -58,14 +58,14 @@ Blockers:
 
 <h2>3. Blocked by another team</h2>
 <div class="standup">Yesterday:
-• Refund screen done against mock data
-• Followed up with Payments on the refund API contract
+• Search screen done against mock data
+• Followed up with Platform on the search API contract
 
 Today:
 • Error states and empty states while I wait
 
 Blockers:
-• Refund API contract — waiting on Payments <span class="receipt">(day 6, asked 3×)</span>. Can someone help me find the right owner?</div>
+• Search API contract — waiting on Platform <span class="receipt">(day 6, asked 3×)</span>. Can someone help me find the right owner?</div>
 
 <h2>4. A day of meetings</h2>
 <div class="standup">Yesterday:
@@ -81,7 +81,7 @@ Blockers:
 <h2>5. Mostly code review</h2>
 <div class="standup">Yesterday:
 • Reviewed 5 PRs, including the auth refactor (approved with two fixes)
-• Paired with Sam on the flaky checkout tests; now passing 50/50 runs
+• Paired with Sam on the flaky sync tests; now passing 50/50 runs
 
 Today:
 • My own PR for search ranking
