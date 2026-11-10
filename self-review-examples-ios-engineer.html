@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review examples for iOS engineers — Sill</title>
+<meta name="description" content="Example self-review sections for iOS engineers: releases shipped, crash-free rate, launch time and accessibility. Phrases that land, and git commands that list the releases you shipped.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-examples-ios-engineer.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/self-review-examples-ios-engineer.html">
+<meta property="og:title" content="Self-review examples for iOS engineers">
+<meta property="og:description" content="Impact, collaboration and growth sections written for iOS work: releases, stability, performance and accessibility.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-review examples for iOS engineers",
+  "description": "Example self-review sections for iOS engineers: releases shipped, crash-free rate, launch time and accessibility. Phrases that land, and git commands that list the releases you shipped.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "inLanguage": "en",
+  "image": "https://dmaulikr.github.io/sill-site/og.png",
+  "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/self-review-examples-ios-engineer.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Self-reviews</div>
+<h1>Self-review examples for iOS engineers.</h1>
+<p>An iOS year is counted in releases. Each one went through App Review, met real devices, and either held up or didn't. That makes iOS self-reviews easier to back up than most: App Store Connect, Xcode Organizer and your git tags already keep the score.</p>
+
+<h2>What reviewers look for in an iOS engineer</h2>
+<ul>
+  <li><strong>Shipping on a cadence.</strong> Releases out of the door, and how many needed a hotfix or a rollback.</li>
+  <li><strong>Stability.</strong> Crash-free sessions and users, hangs, and the top crashes you closed.</li>
+  <li><strong>Performance you can feel.</strong> Launch time, scrolling, memory and battery.</li>
+  <li><strong>Platform judgement.</strong> When you adopted something new, such as SwiftUI, widgets or a new framework, why, and what it cost.</li>
+  <li><strong>Accessibility.</strong> VoiceOver, Dynamic Type and Reduce Motion. Apple's tools make these testable, so reviewers can ask.</li>
+</ul>
+
+<h2>Example: impact</h2>
+<p class="muted">The projects, people and numbers in these examples are made up. Keep the shape and use your own facts.</p>
+<div class="standup">Impact
+• Shipped offline mode for Recipe App 2.0 on iOS using the Sync SDK. 4 App Store releases this half, none rolled back.
+• Raised crash-free sessions from 99.2% to 99.7% by fixing the top five crashes in Xcode Organizer (APP-610 to APP-614).
+• Moved the recipe list to SwiftUI with lazy image loading. Cold launch went from about 1.8 s to 1.3 s on an iPhone 12, measured in Instruments.</div>
+<p>Use the metrics Apple shows. Anyone on the team can open Organizer and see the same crash-free rate you quote.</p>
+
+<h2>Example: collaboration</h2>
+<div class="standup">Collaboration
+• Agreed the sync conflict rules with Ravi (backend) in a one-page doc before either of us wrote code. The Android team reused the doc, so both apps behave the same.
+• Was release captain for three releases and wrote the release checklist. The last one went from branch cut to the App Store in two days.
+• Paired with Neha on her first SwiftUI screen, then reviewed her next three. She owns the settings area now.</div>
+
+<h2>Example: growth</h2>
+<div class="standup">Growth
+• Learned Instruments properly: Time Profiler, Allocations and the SwiftUI template. Performance work went from guessing to measuring.
+• Gave my first internal talk, on testing sync with a fake network layer.
+• Next half: own build times. A clean build takes about 6 minutes; I want it under 4 by splitting the app into modules.</div>
+
+<h2>Phrases that land</h2>
+<ul>
+  <li>"4 releases, none rolled back": a count with a quality bar attached.</li>
+  <li>"crash-free sessions from 99.2% to 99.7%": the number Apple reports, so anyone can check it.</li>
+  <li>"VoiceOver users can now…": a capability a real person gained.</li>
+  <li>"1.8 s to 1.3 s on an iPhone 12, in Instruments": number, device and tool in one line.</li>
+</ul>
+
+<h2>Phrases that don't</h2>
+<ul>
+  <li>"Migrated to SwiftUI." That's the means. What got better for users or for the team?</li>
+  <li>"Improved stability." By how much, and where did you read it?</li>
+  <li>"Worked on the app." Say which part, and what it does now that it didn't.</li>
+  <li>"Kept up with the latest iOS." Name the change you adopted and what it gave users.</li>
+</ul>
+
+<h2>Gather your evidence</h2>
+<p>Release tags make a ready-made timeline. This lists them with their dates:</p>
+<div class="standup">git tag --list 'v*' --sort=creatordate --format='%(creatordate:short) %(refname:short)'</div>
+<p>Then list your own commits between two releases, one release at a time:</p>
+<div class="standup">git log v2.3.0..v2.4.0 --author="$(git config user.email)" --no-merges --format='* %s'</div>
+<p>Screenshot the numbers that move: the crash-free rate and top crashes in Xcode Organizer, the version history in App Store Connect, and the TestFlight feedback you acted on.</p>
+
+<hr>
+<h2>Let Sill keep the record</h2>
+<p>Release notes tell you what shipped; they rarely tell you what you did to get it there. Sill keeps the record while you work. On the Mac it reads your local git history (commit messages and times, never code). On every device it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span>.</p>
+<p>At review time, Sill Pro's Review generator turns months of that into a draft per project: what shipped, commit counts and ticket IDs, and every dependency you waited on. Where Apple Intelligence is available it writes a first-person draft on the device, and nothing leaves it. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=review-ios-engineer&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+<p class="muted">More self-review examples: <a href="self-review-examples-backend-engineer.html">backend engineers</a> · <a href="self-review-examples-frontend-engineer.html">frontend engineers</a> · <a href="self-review-examples-android-engineer.html">Android engineers</a> · <a href="self-review-examples-qa-engineer.html">QA engineers</a> · <a href="self-review-examples-sre-devops.html">SRE and DevOps engineers</a> · <a href="self-review-examples-data-engineer.html">data engineers</a> · <a href="self-review-examples-engineering-manager.html">engineering managers</a> · <a href="self-review-examples-product-designer.html">product designers</a> · <a href="self-review-examples-product-manager.html">product managers</a>. Or start with <a href="self-review-examples.html">how to write a self-review</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>

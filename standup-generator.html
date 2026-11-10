@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Standup generator from git log (free, runs in your browser) — Sill</title>
+<meta name="description" content="Paste your git log output and get a clean daily standup for Slack, Teams or Jira. Drops merge commits and feat:/fix: prefixes, keeps ticket IDs, groups by repo. Nothing is uploaded.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/standup-generator.html">
+<meta property="og:title" content="Standup generator from git log">
+<meta property="og:description" content="Paste git log, add today and blockers, copy a clean standup for Slack, Teams or Jira. Runs in your browser; nothing is uploaded.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Standup generator from git log",
+  "url": "https://dmaulikr.github.io/sill-site/standup-generator.html",
+  "description": "Paste git log output and get a clean Yesterday / Today / Blockers standup for Slack, Microsoft Teams or Jira. Runs in the browser; nothing is uploaded.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "Sill", "url": "https://dmaulikr.github.io/sill-site/" }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Free tool · Standups</div>
+<h1>Standup generator from git log.</h1>
+<p>Paste yesterday's commits, add what you're doing today and what you're stuck on, and copy a standup for Slack, Teams or Jira.</p>
+<p><strong>It runs in your browser.</strong> Nothing you paste is uploaded, saved or tracked. Close the tab and it's gone.</p>
+
+<h2>1. Get yesterday's commits</h2>
+<p>Run this inside a repo. It lists your commits from yesterday, on every branch, without merges:</p>
+<div class="standup">git log --all --since=yesterday.midnight --until=midnight \
+  --author="$(git config user.email)" --no-merges --format='* %s'</div>
+<p><strong>On a Monday</strong>, look back to Friday instead:</p>
+<div class="standup">git log --all --since="last friday" \
+  --author="$(git config user.email)" --no-merges --format='* %s'</div>
+<p>Work in several repos? Use the loop in <a href="git-standup.html">Write your standup from git log</a>. The generator groups its lines by repo.</p>
+
+<h2>2. Paste, add today, copy</h2>
+<div class="tool" id="tool">
+  <label for="commits">Your git log output</label>
+  <textarea id="commits" rows="8" spellcheck="false" autocomplete="off" placeholder="* feat(sync): SYNC-142 retry failed uploads&#10;* fix: stop duplicate saves on slow networks&#10;* Merge branch 'main' into sync-retry"></textarea>
+  <div class="row">
+    <button type="button" class="button quiet" id="sample">Try a sample</button>
+    <button type="button" class="button quiet" id="clear">Clear</button>
+  </div>
+  <label for="today">Today (one item per line)</label>
+  <textarea id="today" rows="3" spellcheck="true" placeholder="Review the offline edits PR&#10;Start SYNC-150: conflict banner"></textarea>
+  <label for="blockers">Blockers (one per line, or leave empty for "None")</label>
+  <textarea id="blockers" rows="2" spellcheck="true" placeholder="Staging environment access — DevOps · Ravi, day 6, asked 3×"></textarea>
+  <div class="row">
+    <label for="heading">Commits are from</label>
+    <select id="heading">
+      <option value="Yesterday">Yesterday</option>
+      <option value="Friday">Friday</option>
+      <option value="Last week">Last week</option>
+    </select>
+    <label for="format">Format</label>
+    <select id="format">
+      <option value="slack">Slack</option>
+      <option value="teams">Microsoft Teams (Markdown)</option>
+      <option value="jira">Jira</option>
+      <option value="plain">Plain text</option>
+    </select>
+  </div>
+  <label for="output">Your standup</label>
+  <textarea id="output" rows="12" readonly spellcheck="false" placeholder="Paste your commits above and your standup appears here."></textarea>
+  <div class="row">
+    <button type="button" class="button" id="copy">Copy standup</button>
+    <span class="muted" id="status" role="status" aria-live="polite"></span>
+  </div>
+  <p class="muted" id="summary"></p>
+</div>
+<noscript><p>The generator needs JavaScript. The command above still works on its own.</p></noscript>
+
+<h2>What the generator changes</h2>
+<ul>
+  <li><strong>Drops noise.</strong> Empty lines and merge commits ("Merge branch…", "Merge pull request…") go.</li>
+  <li><strong>Strips prefixes.</strong> List markers and conventional-commit prefixes such as <code>feat:</code>, <code>fix(sync):</code> and <code>chore:</code> are removed, and the first word gets a capital letter.</li>
+  <li><strong>Keeps ticket IDs.</strong> <code>SYNC-142</code> stays, so your team knows which ticket you mean.</li>
+  <li><strong>Collapses duplicates.</strong> <code>--all</code> can list the same commit twice after a rebase or cherry-pick. Exact repeats become one line.</li>
+  <li><strong>Groups by repo.</strong> Lines from the multi-repo loop, or written as <code>[repo] message</code> or <code>repo: message</code>, are grouped under each repo.</li>
+  <li><strong>Reads other shapes too.</strong> Output from <code>git log --oneline</code> or plain <code>git log</code> works.</li>
+</ul>
+<p>It doesn't rewrite your messages. "Add retry wrapper" is still an implementation detail. For turning commits into outcomes, see the tips in <a href="git-standup.html">the git log guide</a> and the shapes in <a href="standup-examples.html">12 standup examples</a>.</p>
+
+<h2>Where this falls short</h2>
+<p>A generator can only tidy what git knows. Four gaps show up most weeks:</p>
+<ul>
+  <li><strong>Work that isn't a commit.</strong> The review you gave, the bug you reproduced, the design call you sat in. None of it is in <code>git log</code>.</li>
+  <li><strong>Follow-ups and blockers.</strong> Git doesn't know you've waited six days for staging access, or that you asked three times.</li>
+  <li><strong>Other machines.</strong> The command only sees repos on the machine you run it on.</li>
+  <li><strong>Monday after a holiday.</strong> <code>"last friday"</code> misses Thursday if Friday was a day off, and you have to remember to change the date at all.</li>
+</ul>
+<p><strong>Sill</strong> covers most of this. On the Mac, Sill reads the local git history of your repos (commit messages and times, never your code) and writes Yesterday, Today and Blockers from your commits, the tasks you finish and the follow-ups you log. Monday's standup looks back to Friday on its own, and the timeline keeps every day, so after time off you can copy a worklog for any date range.</p>
+<p>Commits are read only by the Mac app, and they never leave that Mac. On iPhone, iPad and Apple Watch, Sill tracks the tasks you finish and the blockers you're waiting on, with receipts like <span class="receipt">day 6, asked 3×</span>, and syncs them through your own iCloud. So a second machine's commits still need that machine, but your tasks and follow-ups are everywhere. No account, no server, no analytics.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=tool-git&amp;mt=8">Get Sill on the App Store</a> — free for Mac, iPhone, iPad and Apple Watch, including the set-time standup reminder. Sill Pro is an optional paid upgrade. Your team already uses a standup bot? See <a href="standup-bots-vs-sill.html">how Sill works with Geekbot, Standuply and Range</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+<script>
+/* sill-clean:start */
+var CONVENTIONAL_RE = /^(?:feat|fix|chore|refactor|docs|test|perf|build|ci|style)(?:\([^)]*\))?!?\s*:\s*/i;
+var CONVENTIONAL_TYPE_RE = /^(?:feat|fix|chore|refactor|docs|test|perf|build|ci|style)$/i;
+var TICKET_RE = /^[A-Z][A-Z0-9]+-\d+$/;
+var MERGE_RE = /^(?:Merge (?:branch|branches|remote-tracking branch|pull request|tag|commit)\b|Merge ['"]|Merged in |Merged PR \d+)/i;
+var COMMIT_HEADER_RE = /^commit [0-9a-f]{7,40}\b/;
+
+// Turns pasted text into commit subjects: handles `--format='* %s'`,
+// `--oneline` (hashes and decorations) and the default `git log` layout.
+function extractSubjects(text) {
+  var lines = String(text || '').replace(/\r\n?/g, '\n').split('\n');
+  var out = [];
+  var i, line;
+  if (lines.some(function (l) { return COMMIT_HEADER_RE.test(l); })) {
+    var want = false, isMerge = false;
+    for (i = 0; i < lines.length; i++) {
+      line = lines[i];
+      if (COMMIT_HEADER_RE.test(line)) { want = true; isMerge = false; continue; }
+      if (!want || !line.trim()) continue;
+      if (/^Merge:\s/.test(line)) { isMerge = true; continue; }
+      if (/^[A-Za-z-]+:\s/.test(line)) continue; // Author:, Date:
+      if (!isMerge) out.push(line.trim());
+      want = false;
+    }
+    return out;
+  }
+  for (i = 0; i < lines.length; i++) {
+    line = lines[i].replace(/^\|[|\\\/\s]*/, '').trim();       // --graph rails
+    line = line.replace(/^(?:[*\-•+]\s+)+/, '').trim();          // * - • bullets
+    if (!line) continue;
+    if (/\bgit\b.*\blog\b.*\s--/.test(line)) continue;           // the command itself
+    out.push(line);
+  }
+  if (out.length && out.every(function (s) { return /^[0-9a-f]{7,40}\s+\S/.test(s); })) {
+    out = out.map(function (s) {
+      return s.replace(/^[0-9a-f]{7,40}\s+/, '').replace(/^\([^)]*\)\s+/, '');
+    });
+  }
+  return out;
+}
+
+// The repo a line names, in each of the three shapes we accept.
+function repoTags(s) {
+  var t = {}, m;
+  m = s.match(/^\[([^\]]+)\]\s*(.+)$/);
+  if (m && !TICKET_RE.test(m[1].trim()) && !/^(?:wip|draft)$/i.test(m[1].trim())) t.bracket = { repo: m[1].trim(), msg: m[2] };
+  m = s.match(/^(.+?)\s+\(([\w.\-]+)\)$/);
+  if (m) t.paren = { repo: m[2], msg: m[1] };
+  m = s.match(/^([\w.\-\/]+):\s+(.+)$/);
+  if (m && !TICKET_RE.test(m[1]) && !CONVENTIONAL_TYPE_RE.test(m[1])) t.colon = { repo: m[1], msg: m[2] };
+  return t;
+}
+
+function capitalise(s) {
+  return /^[a-z]+(?:[^A-Za-z]|$)/.test(s) ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+function cleanMessage(s) {
+  var m = String(s).trim(), prev;
+  do { prev = m; m = m.replace(/^(?:fixup|squash|amend)!\s*/i, ''); } while (m !== prev);
+  m = m.replace(CONVENTIONAL_RE, '');
+  var t = m.match(/^([A-Z][A-Z0-9]+-\d+)(:?\s+)(.*)$/);
+  if (t) return t[1] + t[2] + capitalise(t[3].replace(CONVENTIONAL_RE, '').trim());
+  return capitalise(m.trim());
+}
+
+function isMerge(s) { return MERGE_RE.test(String(s).trim()); }
+
+// Returns { groups: [{ repo, items }], grouped, commits, merges, duplicates }.
+// Lines are grouped only when every line names a repo in the same shape
+// and at least two different repos appear; otherwise the text is kept whole.
+function cleanCommits(text) {
+  var subjects = extractSubjects(text);
+  var tags = subjects.map(repoTags);
+  var style = null;
+  ['bracket', 'paren', 'colon'].some(function (k) {
+    if (!tags.length || !tags.every(function (t) { return t[k]; })) return false;
+    var repos = {};
+    tags.forEach(function (t) { repos[t[k].repo] = true; });
+    if (Object.keys(repos).length < 2) return false;
+    style = k;
+    return true;
+  });
+  var result = { groups: [], grouped: !!style, commits: 0, merges: 0, duplicates: 0 };
+  var byRepo = {};
+  subjects.forEach(function (s, i) {
+    var repo = style ? tags[i][style].repo : null;
+    var msg = style ? tags[i][style].msg : s;
+    if (isMerge(msg) || isMerge(s)) { result.merges++; return; }
+    var clean = cleanMessage(msg);
+    if (!clean) return;
+    var key = repo === null ? '' : repo;
+    if (!byRepo.hasOwnProperty(key)) {
+      byRepo[key] = { repo: repo, items: [], seen: {} };
+      result.groups.push(byRepo[key]);
+    }
+    var g = byRepo[key];
+    if (g.seen[clean]) { result.duplicates++; return; }
+    g.seen[clean] = true;
+    g.items.push(clean);
+    result.commits++;
+  });
+  result.groups.forEach(function (g) { delete g.seen; });
+  return result;
+}
+
+function listLines(text) {
+  return String(text || '').replace(/\r\n?/g, '\n').split('\n')
+    .map(function (l) { return l.replace(/^(?:[*\-•+]\s+)+/, '').trim(); })
+    .filter(function (l) { return l; });
+}
+
+var FORMATS = {
+  slack: { head: function (t) { return '*' + t + '*'; }, bullet: '• ', group: function (r) { return '_' + r + '_'; } },
+  teams: { head: function (t) { return '**' + t + '**'; }, bullet: '- ', group: function (r) { return '*' + r + '*'; } },
+  jira:  { head: function (t) { return '*' + t + '*'; }, bullet: '* ', group: function (r) { return '_' + r + '_'; } },
+  plain: { head: function (t) { return t + ':'; }, bullet: '* ', group: function (r) { return r + ':'; } }
+};
+
+// opts: { heading, today (text), blockers (text), format }
+function formatStandup(parsed, opts) {
+  var f = FORMATS[opts.format] || FORMATS.slack;
+  var today = listLines(opts.today), blockers = listLines(opts.blockers);
+  var out = [];
+  if (parsed.commits > 0) {
+    out.push(f.head(opts.heading || 'Yesterday'));
+    parsed.groups.forEach(function (g) {
+      if (!g.items.length) return;
+      if (parsed.grouped) out.push(f.group(g.repo));
+      g.items.forEach(function (it) { out.push(f.bullet + it); });
+    });
+  }
+  if (today.length) {
+    if (out.length) out.push('');
+    out.push(f.head('Today'));
+    today.forEach(function (it) { out.push(f.bullet + it); });
+  }
+  if (out.length || blockers.length) {
+    if (out.length) out.push('');
+    out.push(f.head('Blockers'));
+    if (blockers.length) blockers.forEach(function (it) { out.push(f.bullet + it); });
+    else out.push(f.bullet + 'None');
+  }
+  return out.join('\n');
+}
+/* sill-clean:end */
+
+(function () {
+  var el = function (id) { return document.getElementById(id); };
+  var commits = el('commits'), today = el('today'), blockers = el('blockers');
+  var heading = el('heading'), format = el('format'), output = el('output');
+  var status = el('status'), summary = el('summary');
+  if (!commits) return;
+  if (new Date().getDay() === 1) heading.value = 'Friday';
+
+  var SAMPLE = [
+    "* feat(sync): SYNC-142 retry failed uploads with backoff (sync-sdk)",
+    "* fix: SYNC-147 stop duplicate saves on slow networks (sync-sdk)",
+    "* Merge branch 'main' into sync-retry (sync-sdk)",
+    "* test: cover the double-tap save case (sync-sdk)",
+    "* fix: SYNC-147 stop duplicate saves on slow networks (sync-sdk)",
+    "* APP-318 recipe list loads from the local cache first (recipe-app)",
+    "* chore(deps): bump the Sync SDK to 2.3 (recipe-app)"
+  ].join('\n');
+
+  function plural(n, word) { return n + ' ' + word + (n === 1 ? '' : 's'); }
+
+  function render() {
+    var parsed = cleanCommits(commits.value);
+    output.value = formatStandup(parsed, {
+      heading: heading.value, today: today.value, blockers: blockers.value, format: format.value
+    });
+    output.style.height = 'auto';
+    output.style.height = Math.max(output.scrollHeight + 2, 180) + 'px';
+    status.textContent = '';
+    if (!commits.value.trim()) { summary.textContent = ''; return; }
+    var bits = [plural(parsed.commits, 'line') + ' kept'];
+    if (parsed.merges) bits.push(plural(parsed.merges, 'merge') + ' dropped');
+    if (parsed.duplicates) bits.push(plural(parsed.duplicates, 'duplicate') + ' collapsed');
+    if (parsed.grouped) bits.push('grouped by repo');
+    summary.textContent = bits.join(' · ') + '.';
+  }
+
+  function copied(ok) {
+    status.textContent = ok ? 'Copied.' : 'Select the text and copy it (⌘C or Ctrl+C).';
+  }
+
+  function fallbackCopy() {
+    var ok = false;
+    output.focus();
+    output.select();
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    copied(ok);
+  }
+
+  function copy() {
+    if (!output.value) { status.textContent = 'Nothing to copy yet.'; return; }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(output.value).then(function () { copied(true); }, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  [commits, today, blockers].forEach(function (x) { x.addEventListener('input', render); });
+  [heading, format].forEach(function (x) { x.addEventListener('change', render); });
+  el('sample').addEventListener('click', function () {
+    commits.value = SAMPLE;
+    if (!today.value.trim()) today.value = "Review Neha's PR for offline recipe edits\nStart SYNC-150: conflict banner";
+    if (!blockers.value.trim()) blockers.value = 'Staging environment access — DevOps · Ravi, day 6, asked 3×';
+    render();
+  });
+  el('clear').addEventListener('click', function () {
+    commits.value = ''; today.value = ''; blockers.value = '';
+    render();
+    commits.focus();
+  });
+  el('copy').addEventListener('click', copy);
+  render();
+})();
+</script>
+</body>
+</html>

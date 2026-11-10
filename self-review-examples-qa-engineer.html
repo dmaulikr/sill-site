@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review examples for QA engineers — Sill</title>
+<meta name="description" content="Example self-review sections for QA and test engineers: bugs caught before release, automation, flaky tests and release confidence. Phrases that land, and how to gather evidence from git and your tracker.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-examples-qa-engineer.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/self-review-examples-qa-engineer.html">
+<meta property="og:title" content="Self-review examples for QA engineers">
+<meta property="og:description" content="Impact, collaboration and growth sections written for QA work: bugs caught early, automation and trusted tests.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-review examples for QA engineers",
+  "description": "Example self-review sections for QA and test engineers: bugs caught before release, automation, flaky tests and release confidence. Phrases that land, and how to gather evidence from git and your tracker.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "inLanguage": "en",
+  "image": "https://dmaulikr.github.io/sill-site/og.png",
+  "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/self-review-examples-qa-engineer.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Self-reviews</div>
+<h1>Self-review examples for QA engineers.</h1>
+<p>QA has one of the hardest self-reviews to write, because success is an absence: the bug that never reached users, the release that went out on time because nobody was guessing. You have to count what didn't happen, and show that you made it not happen.</p>
+
+<h2>What reviewers look for in a QA engineer</h2>
+<ul>
+  <li><strong>Bugs caught before users saw them.</strong> Especially severe ones, and how early in the cycle you found them.</li>
+  <li><strong>Faster, trusted feedback.</strong> Automation that runs in CI, and tests people believe when they fail.</li>
+  <li><strong>Clear bug reports.</strong> Steps, device, logs. Engineers notice whose bugs they can fix on the first read.</li>
+  <li><strong>Quality earlier.</strong> Joining design reviews and spec discussions before code exists.</li>
+  <li><strong>Release confidence.</strong> A sign-off that means something, and a clear "not yet" when it doesn't.</li>
+</ul>
+
+<h2>Example: impact</h2>
+<p class="muted">The projects, people and numbers in these examples are made up. Keep the shape and use your own facts.</p>
+<div class="standup">Impact
+• Automated the Recipe App 2.0 create-and-sync regression suite (38 cases). A full regression pass went from about two days by hand to 40 minutes in CI.
+• Cut the flaky-run rate of the Sync SDK suite from roughly 12% to under 2%, by isolating shared test state and replacing sleeps with explicit waits.
+• Found the offline duplicate-save bug (APP-733) in the release candidate, two days before the 2.0 launch, with steps that reproduced it on three devices. It was fixed the same day.</div>
+<p>Timing is the evidence. A severe bug found in a spec review is worth more than the same bug found in the release candidate, and both are worth more than one found by users.</p>
+
+<h2>Example: collaboration</h2>
+<div class="standup">Collaboration
+• Joined design reviews for 2.0 and added test notes to each spec. Nine edge cases, mostly about going offline mid-edit, were fixed before any code was written.
+• Paired with Ravi on contract tests for the sync API, so a breaking change now fails his build instead of reaching the apps.
+• Ran a one-hour session for engineers on writing UI tests with our page objects. Neha has since added 11 tests herself.</div>
+
+<h2>Example: growth</h2>
+<div class="standup">Growth
+• Learned to write API tests against the sync endpoint, which let me test conflict cases the UI can't reach.
+• Started reading crash reports after each release to find gaps in our test plan. Two new regression cases came from that.
+• Next half: own performance testing for sync, starting with a baseline for large recipe libraries.</div>
+
+<h2>Phrases that land</h2>
+<ul>
+  <li>"found in the release candidate, two days before launch": the bug, and how close it came.</li>
+  <li>"regression pass from two days to 40 minutes": time given back to the whole team.</li>
+  <li>"fixed before any code was written": the cheapest bug there is.</li>
+  <li>"fails his build instead of reaching the apps": names the safety net you built.</li>
+</ul>
+
+<h2>Phrases that don't</h2>
+<ul>
+  <li>"Ensured quality." Nobody can. Say what you checked and what you caught.</li>
+  <li>"Logged 140 bugs." A count without severity rewards noise.</li>
+  <li>"Tested everything." Reviewers know you didn't, so it costs you trust.</li>
+  <li>"Supported the release." Say what your sign-off was based on.</li>
+</ul>
+
+<h2>Gather your evidence</h2>
+<p>Your test code lives in git. This lists your commits to test folders over six months:</p>
+<div class="standup">git log --since="6 months ago" --author="$(git config user.email)" --no-merges \
+  --date=short --format='%ad %s' -- tests e2e</div>
+<p>Your bug reports live in the tracker. In Jira, a filter like this lists what you reported in the last six months, most severe first:</p>
+<div class="standup">reporter = currentUser() AND created >= -26w ORDER BY priority DESC, created ASC</div>
+<p>For each severe bug, note when you found it (spec, development, release candidate) and whether it reached users. Add the CI history of the suites you own, from before and after you fixed the flaky tests.</p>
+
+<hr>
+<h2>Let Sill keep the record</h2>
+<p>Most QA work happens in other people's tickets and builds, so it's the easiest to forget by review time. Sill keeps the record while you work. On the Mac it reads your local git history (commit messages and times, never code). On every device it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span>.</p>
+<p>At review time, Sill Pro's Review generator turns months of that into a draft per project: what shipped, commit counts and ticket IDs, and every dependency you waited on. Where Apple Intelligence is available it writes a first-person draft on the device, and nothing leaves it. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=review-qa-engineer&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+<p class="muted">More self-review examples: <a href="self-review-examples-backend-engineer.html">backend engineers</a> · <a href="self-review-examples-frontend-engineer.html">frontend engineers</a> · <a href="self-review-examples-ios-engineer.html">iOS engineers</a> · <a href="self-review-examples-android-engineer.html">Android engineers</a> · <a href="self-review-examples-sre-devops.html">SRE and DevOps engineers</a> · <a href="self-review-examples-data-engineer.html">data engineers</a> · <a href="self-review-examples-engineering-manager.html">engineering managers</a> · <a href="self-review-examples-product-designer.html">product designers</a> · <a href="self-review-examples-product-manager.html">product managers</a>. Or start with <a href="self-review-examples.html">how to write a self-review</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>

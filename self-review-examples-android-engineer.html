@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review examples for Android engineers — Sill</title>
+<meta name="description" content="Example self-review sections for Android engineers: ANR and crash rates, staged rollouts, app size and device coverage. Phrases that land, and a git command that shows which modules you shaped.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-examples-android-engineer.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/self-review-examples-android-engineer.html">
+<meta property="og:title" content="Self-review examples for Android engineers">
+<meta property="og:description" content="Impact, collaboration and growth sections written for Android work: vitals, rollouts, size and the long tail of devices.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-review examples for Android engineers",
+  "description": "Example self-review sections for Android engineers: ANR and crash rates, staged rollouts, app size and device coverage. Phrases that land, and a git command that shows which modules you shaped.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "inLanguage": "en",
+  "image": "https://dmaulikr.github.io/sill-site/og.png",
+  "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/self-review-examples-android-engineer.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Self-reviews</div>
+<h1>Self-review examples for Android engineers.</h1>
+<p>Android work is judged across thousands of devices you'll never hold. A good self-review shows you thought about the long tail: the phone with 2 GB of RAM, the old OS version, the network that drops in a lift. Play Console vitals give you the numbers. Your job is to connect them to what you did.</p>
+
+<h2>What reviewers look for in an Android engineer</h2>
+<ul>
+  <li><strong>Vitals.</strong> ANR rate and user-perceived crash rate, the numbers Play Console flags when they go bad.</li>
+  <li><strong>Reach.</strong> Devices, OS versions and screen sizes your work held up on.</li>
+  <li><strong>Release safety.</strong> Staged rollouts, halts, and how fast a bad build was caught.</li>
+  <li><strong>Background work done right.</strong> WorkManager, battery, and respect for the user's data plan.</li>
+  <li><strong>Size and startup.</strong> Download size, cold start and Baseline Profiles.</li>
+</ul>
+
+<h2>Example: impact</h2>
+<p class="muted">The projects, people and numbers in these examples are made up. Keep the shape and use your own facts.</p>
+<div class="standup">Impact
+• Cut the ANR rate on the recipe list from about 0.9% to 0.3% (Play Console vitals) by moving image decoding off the main thread (APP-702).
+• Shipped offline sync for Recipe App 2.0 on Android with WorkManager and the Sync SDK. Staged rollout from 5% to 100% over ten days, with no halts.
+• Reduced the download size by about 8 MB with tighter R8 rules and unused resources removed. That matters most for people on slow connections.</div>
+<p>Say where a number comes from. "Play Console vitals" tells the reviewer it isn't your local benchmark.</p>
+
+<h2>Example: collaboration</h2>
+<div class="standup">Collaboration
+• Kept Android in step with iOS. I worked from the sync conflict doc Neha wrote for iOS and filed 6 parity tickets, so neither platform shipped the feature alone.
+• Set up a weekly hour with QA on low-end test devices. We found list jank on 2 GB phones three weeks before launch.
+• Reviewed Ravi's API changes from the client side and caught a pagination change that would have broken older app versions.</div>
+
+<h2>Example: growth</h2>
+<div class="standup">Growth
+• Moved new screens from XML views to Jetpack Compose, and wrote the team's notes on state hoisting so reviews stopped debating it.
+• Learned to read Perfetto traces. The ANR fix above started in one.
+• Next half: add Baseline Profiles and measure cold start on our three slowest test devices.</div>
+
+<h2>Phrases that land</h2>
+<ul>
+  <li>"ANR rate from 0.9% to 0.3% in Play Console vitals": the exact place anyone can verify it.</li>
+  <li>"staged rollout to 100% with no halts": release discipline in one line.</li>
+  <li>"holds up on 2 GB devices": names the long tail you cared about.</li>
+  <li>"would have broken older app versions": prevention counts, as long as you say what it prevented.</li>
+</ul>
+
+<h2>Phrases that don't</h2>
+<ul>
+  <li>"Optimized the app." Which part, and which number moved?</li>
+  <li>"Fixed Android-specific bugs." On an Android team, they all are. Pick the ones that mattered.</li>
+  <li>"Migrated to Compose." Say what it unlocked: faster screens to build, fewer bugs, a shared component.</li>
+  <li>"Supported all devices." Nobody does. Say which ones you tested.</li>
+</ul>
+
+<h2>Gather your evidence</h2>
+<p>This counts how many of your commits touched each module in the last six months. It's a quick map of where your time went:</p>
+<div class="standup">git log --since="6 months ago" --author="$(git config user.email)" --no-merges \
+  --name-only --format='' | cut -d/ -f1-2 | sort | uniq -c | sort -rn | head -15</div>
+<p>Then export Android vitals for the app versions you shipped, note each staged rollout and halt from the Play Console release history, and keep the list of devices you tested on.</p>
+
+<hr>
+<h2>Let Sill keep the record</h2>
+<p>Device testing, rollout watching and the review that caught a breaking change rarely leave a commit behind. Sill keeps the record while you work. On the Mac it reads your local git history (commit messages and times, never code). On every device it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span>.</p>
+<p>At review time, Sill Pro's Review generator turns months of that into a draft per project: what shipped, commit counts and ticket IDs, and every dependency you waited on. Where Apple Intelligence is available it writes a first-person draft on the device, and nothing leaves it. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=review-android-engineer&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+<p class="muted">More self-review examples: <a href="self-review-examples-backend-engineer.html">backend engineers</a> · <a href="self-review-examples-frontend-engineer.html">frontend engineers</a> · <a href="self-review-examples-ios-engineer.html">iOS engineers</a> · <a href="self-review-examples-qa-engineer.html">QA engineers</a> · <a href="self-review-examples-sre-devops.html">SRE and DevOps engineers</a> · <a href="self-review-examples-data-engineer.html">data engineers</a> · <a href="self-review-examples-engineering-manager.html">engineering managers</a> · <a href="self-review-examples-product-designer.html">product designers</a> · <a href="self-review-examples-product-manager.html">product managers</a>. Or start with <a href="self-review-examples.html">how to write a self-review</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review examples for data engineers — Sill</title>
+<meta name="description" content="Example self-review sections for data engineers: pipeline freshness, data quality tests, warehouse spend and self-serve datasets. Phrases that land, and a git command that lists the models you created.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-examples-data-engineer.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/self-review-examples-data-engineer.html">
+<meta property="og:title" content="Self-review examples for data engineers">
+<meta property="og:description" content="Impact, collaboration and growth sections written for data engineering: freshness, quality, spend and self-serve data.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-review examples for data engineers",
+  "description": "Example self-review sections for data engineers: pipeline freshness, data quality tests, warehouse spend and self-serve datasets. Phrases that land, and a git command that lists the models you created.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "inLanguage": "en",
+  "image": "https://dmaulikr.github.io/sill-site/og.png",
+  "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/self-review-examples-data-engineer.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Self-reviews</div>
+<h1>Self-review examples for data engineers.</h1>
+<p>Data engineering shows up in other people's work. The analyst's chart is right, a product question gets answered in an hour, the model trains on yesterday's data. Your self-review has to trace those back to the pipelines and tests you built.</p>
+
+<h2>What reviewers look for in a data engineer</h2>
+<ul>
+  <li><strong>Freshness and reliability.</strong> Pipelines that land on time, and how often they didn't.</li>
+  <li><strong>Data quality.</strong> Tests, contracts, and bad data caught before a dashboard showed it.</li>
+  <li><strong>Speed and spend.</strong> Run times and warehouse spend for the jobs you own.</li>
+  <li><strong>Self-serve.</strong> Datasets and docs that let people answer questions without a ticket to you.</li>
+  <li><strong>Safe schema change.</strong> Evolving tables without breaking the people downstream.</li>
+</ul>
+
+<h2>Example: impact</h2>
+<p class="muted">The projects, people and numbers in these examples are made up. Keep the shape and use your own facts.</p>
+<div class="standup">Impact
+• Rebuilt the daily recipe-events pipeline as incremental models. Run time fell from about 3 hours to 25 minutes, and the job's warehouse spend roughly halved.
+• Added tests (unique, not null, freshness) to the 12 most-used tables. They caught four upstream schema changes before any dashboard broke.
+• Published the Sync SDK usage dataset with column docs. Product answers adoption questions themselves now; requests to us about sync data have almost stopped.</div>
+<p>Your users are other people in the company. Write the effect in their terms: answered without a ticket, right the first time, ready by 9.</p>
+
+<h2>Example: collaboration</h2>
+<div class="standup">Collaboration
+• Agreed an event schema contract with the mobile teams, written with Neha. New events arrive named, typed and documented, instead of being fixed after launch.
+• Ran weekly office hours for analysts. Most questions became docs, so the same question rarely came twice.
+• Worked with Ravi to move pipeline alerts into the team's on-call, with a runbook for each failure we'd seen.</div>
+
+<h2>Example: growth</h2>
+<div class="standup">Growth
+• Learned streaming ingestion on a small project: sync events now land within five minutes, for the one dashboard that needs it.
+• Wrote my first design doc for a cross-team change (the event contract) and ran the review myself.
+• Next half: lineage for the top 20 tables, so anyone can see what breaks before they change a column.</div>
+
+<h2>Phrases that land</h2>
+<ul>
+  <li>"landed on time on 178 of 182 days": freshness as a record, with the misses included.</li>
+  <li>"caught before any dashboard broke": the failure you prevented, in the reader's terms.</li>
+  <li>"from 3 hours to 25 minutes": speed someone downstream felt.</li>
+  <li>"answer it themselves, without a ticket": self-serve, measured.</li>
+</ul>
+
+<h2>Phrases that don't</h2>
+<ul>
+  <li>"Built pipelines." That's the job title. What do they make possible?</li>
+  <li>"Maintained the ETL." Against what? Say what broke, and what didn't.</li>
+  <li>"Worked with stakeholders." Name who, and what they could do afterwards.</li>
+  <li>"Big data." Say what the size made possible, or what it cost.</li>
+</ul>
+
+<h2>Gather your evidence</h2>
+<p>New models are the clearest trail in a data repo. This lists the SQL files you created in the last six months:</p>
+<div class="standup">git log --since="6 months ago" --author="$(git config user.email)" --no-merges \
+  --diff-filter=A --name-only --format='' -- 'models/*.sql' | sort -u</div>
+<p>Then pull the orchestrator's run history for your pipelines (success rate and duration over time), the warehouse query history for the jobs you tuned, and the test failures that caught bad data before anyone saw it.</p>
+
+<hr>
+<h2>Let Sill keep the record</h2>
+<p>A data engineer's month is mostly small fixes and questions answered, and none of it is easy to recall in December. Sill keeps the record while you work. On the Mac it reads your local git history (commit messages and times, never code). On every device it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span>.</p>
+<p>At review time, Sill Pro's Review generator turns months of that into a draft per project: what shipped, commit counts and ticket IDs, and every dependency you waited on. Where Apple Intelligence is available it writes a first-person draft on the device, and nothing leaves it. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=review-data-engineer&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+<p class="muted">More self-review examples: <a href="self-review-examples-backend-engineer.html">backend engineers</a> · <a href="self-review-examples-frontend-engineer.html">frontend engineers</a> · <a href="self-review-examples-ios-engineer.html">iOS engineers</a> · <a href="self-review-examples-android-engineer.html">Android engineers</a> · <a href="self-review-examples-qa-engineer.html">QA engineers</a> · <a href="self-review-examples-sre-devops.html">SRE and DevOps engineers</a> · <a href="self-review-examples-engineering-manager.html">engineering managers</a> · <a href="self-review-examples-product-designer.html">product designers</a> · <a href="self-review-examples-product-manager.html">product managers</a>. Or start with <a href="self-review-examples.html">how to write a self-review</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>

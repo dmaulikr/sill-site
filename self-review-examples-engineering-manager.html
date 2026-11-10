@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review examples for engineering managers — Sill</title>
+<meta name="description" content="Example self-review sections for engineering managers: team outcomes, people growth, hiring, on-call health and decisions. Phrases that land, and how to gather evidence without counting commits.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-examples-engineering-manager.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/self-review-examples-engineering-manager.html">
+<meta property="og:title" content="Self-review examples for engineering managers">
+<meta property="og:description" content="Impact, collaboration and growth sections written for engineering managers: outcomes, people, hiring and decisions.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-review examples for engineering managers",
+  "description": "Example self-review sections for engineering managers: team outcomes, people growth, hiring, on-call health and decisions. Phrases that land, and how to gather evidence without counting commits.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "inLanguage": "en",
+  "image": "https://dmaulikr.github.io/sill-site/og.png",
+  "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/self-review-examples-engineering-manager.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Self-reviews</div>
+<h1>Self-review examples for engineering managers.</h1>
+<p>A manager's self-review is about the team's results and your part in them. The trap runs both ways: claiming the team's work as yours, or hiding behind "the team" so nobody can see what you decided. Write down the decisions, the people and the outcomes, and say which parts were yours.</p>
+
+<h2>What reviewers look for in an engineering manager</h2>
+<ul>
+  <li><strong>Team outcomes.</strong> What the team shipped against what it committed to, and how you handled the gap.</li>
+  <li><strong>People.</strong> Growth, promotions, feedback given, and hard conversations handled well.</li>
+  <li><strong>Hiring.</strong> Roles filled, the quality of the interview loop, and how new people ramped up.</li>
+  <li><strong>Team health.</strong> On-call load, attrition, and whether people had time for focused work.</li>
+  <li><strong>Decisions and alignment.</strong> Trade-offs you made, scope you cut, dependencies you unblocked.</li>
+</ul>
+
+<h2>Example: impact</h2>
+<p class="muted">The projects, people and numbers in these examples are made up. Keep the shape and use your own facts.</p>
+<div class="standup">Impact
+• The team shipped Recipe App 2.0 on iOS, Android and web in the planned quarter, with offline sync on the Sync SDK. I moved meal plans to the next quarter in week four instead of letting the date slip.
+• Reduced on-call load from one week in three to one in six, by growing the rota and working with Ravi on the noisiest alerts.
+• Hired two engineers. Both shipped to production in their second week, using the onboarding plan I rewrote.</div>
+<p>Separate "the team shipped" from "I decided". Reviewers want both, and they want to see the line between them.</p>
+
+<h2>Example: collaboration</h2>
+<div class="standup">Collaboration
+• Set up a fortnightly sync with the platform team. The staging environment access blocker had been open six weeks; once it had an owner and a date, it closed in ten days.
+• Wrote the quarterly plan with product and design as one document, so the team saw one priority list instead of three.
+• Gave every direct report written feedback twice this half, with examples rather than adjectives.</div>
+
+<h2>Example: growth</h2>
+<div class="standup">Growth
+• Supported Neha's move to senior. We agreed a growth plan in January, she led the sync conflict design, and she was promoted in the June cycle.
+• Learned to delegate the release process. It runs without me now, and I spend that time on planning.
+• Next half: a hiring plan for two roles, and saying no faster to work that isn't on the plan.</div>
+
+<h2>Phrases that land</h2>
+<ul>
+  <li>"I decided X because Y, and the result was Z": ownership of a call, good or bad.</li>
+  <li>"cut scope in week four instead of slipping the date": the trade-off, with its timing.</li>
+  <li>"shipped to production in their second week": onboarding, measured.</li>
+  <li>"closed in ten days once it had an owner": unblocking, with receipts.</li>
+</ul>
+
+<h2>Phrases that don't</h2>
+<ul>
+  <li>"I managed the team." That's the role. What changed because of how you did it?</li>
+  <li>"I'm a servant leader." Show it with one example instead of a label.</li>
+  <li>"Had regular 1:1s." Expected. What came out of them?</li>
+  <li>"I shipped Recipe App 2.0." The team did. Say what you did to make it possible.</li>
+</ul>
+
+<h2>Gather your evidence</h2>
+<p>Don't count commits. They measure the wrong thing, for you and for your team. Use git as a calendar of what the team shipped instead. This lists what landed on main, by date:</p>
+<div class="standup">git log main --first-parent --since="6 months ago" --date=short --format='%ad %s'</div>
+<p>The rest of your evidence is in documents: 1:1 notes, the decision log, planning docs, the hiring tracker and interview notes, and the blockers you escalated, with the dates you raised them and the dates they closed.</p>
+
+<hr>
+<h2>Let Sill keep the record</h2>
+<p>Sill records your own work, and that still helps a manager. The follow-ups you send, the decisions you note as tasks, and the receipts on every blocker you chased for the team, like <span class="receipt">day 6, asked 3×</span>, are kept on iPhone, iPad and Mac. If you still write code, the Mac app adds your commits from local git history (messages and times, never code).</p>
+<p>At review time, Sill Pro's Review generator turns months of that into a draft per project, including how long you waited on each dependency and how many times you followed up. Where Apple Intelligence is available it writes a first-person draft on the device, and nothing leaves it. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=review-engineering-manager&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+<p class="muted">More self-review examples: <a href="self-review-examples-backend-engineer.html">backend engineers</a> · <a href="self-review-examples-frontend-engineer.html">frontend engineers</a> · <a href="self-review-examples-ios-engineer.html">iOS engineers</a> · <a href="self-review-examples-android-engineer.html">Android engineers</a> · <a href="self-review-examples-qa-engineer.html">QA engineers</a> · <a href="self-review-examples-sre-devops.html">SRE and DevOps engineers</a> · <a href="self-review-examples-data-engineer.html">data engineers</a> · <a href="self-review-examples-product-designer.html">product designers</a> · <a href="self-review-examples-product-manager.html">product managers</a>. Or start with <a href="self-review-examples.html">how to write a self-review</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>

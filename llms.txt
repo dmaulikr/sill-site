@@ -6,14 +6,34 @@
 - Receipts: for each blocker (an API, a design, a review, access) Sill shows how long you've waited and how many times you followed up, e.g. "day 6, asked 3x", and includes that in the standup.
 - Worklog: a timeline of commits, finished tasks, notes, follow-ups and focus sessions; copy a worklog for any date range.
 - Privacy: no account, no server, no analytics. The App Store privacy label is "Data Not Collected". Data stays on device and in the user's private iCloud.
-- Platforms: one universal purchase for macOS (window + menu bar), iOS, iPadOS and watchOS. Free on the App Store, with an optional Pro upgrade planned.
+- Platforms: one universal purchase for macOS (window + menu bar), iOS, iPadOS and watchOS. Git commits are read only by the Mac app and never sync; iPhone, iPad and Apple Watch track tasks and blockers.
+- Price: free on the App Store, including the set-time standup reminder. Sill Pro is an optional paid upgrade: a self-review generator for periods longer than 7 days (drafted on device with Apple Intelligence where available), a calendar-following reminder, and more than 3 open blockers at a time (free tracks 3).
 - App Store: https://apps.apple.com/app/id6823163147
+
+## Free tools
+
+- [Standup generator from git log](https://dmaulikr.github.io/sill-site/standup-generator.html): paste git log output, add today's plan and blockers, copy a standup formatted for Slack, Microsoft Teams, Jira or plain text. Drops merge commits and conventional-commit prefixes, keeps ticket IDs, groups multi-repo output by repo. Runs in the browser; nothing is uploaded.
 
 ## Guides
 
 - [Write your standup from git log, in one command](https://dmaulikr.github.io/sill-site/git-standup.html)
 - [12 daily standup examples for developers](https://dmaulikr.github.io/sill-site/standup-examples.html)
 - [How to follow up when another team is blocking you](https://dmaulikr.github.io/sill-site/follow-up-templates.html)
+- [Standup bots vs Sill: Geekbot, Standuply and Range compared](https://dmaulikr.github.io/sill-site/standup-bots-vs-sill.html)
+
+## Self-review examples
+
+- [How to write a self-review, with examples for 10 roles](https://dmaulikr.github.io/sill-site/self-review-examples.html)
+- [Backend engineers](https://dmaulikr.github.io/sill-site/self-review-examples-backend-engineer.html)
+- [Frontend engineers](https://dmaulikr.github.io/sill-site/self-review-examples-frontend-engineer.html)
+- [iOS engineers](https://dmaulikr.github.io/sill-site/self-review-examples-ios-engineer.html)
+- [Android engineers](https://dmaulikr.github.io/sill-site/self-review-examples-android-engineer.html)
+- [QA engineers](https://dmaulikr.github.io/sill-site/self-review-examples-qa-engineer.html)
+- [SRE and DevOps engineers](https://dmaulikr.github.io/sill-site/self-review-examples-sre-devops.html)
+- [Data engineers](https://dmaulikr.github.io/sill-site/self-review-examples-data-engineer.html)
+- [Engineering managers](https://dmaulikr.github.io/sill-site/self-review-examples-engineering-manager.html)
+- [Product designers](https://dmaulikr.github.io/sill-site/self-review-examples-product-designer.html)
+- [Product managers](https://dmaulikr.github.io/sill-site/self-review-examples-product-manager.html)
 
 ## Help
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review examples for frontend engineers — Sill</title>
+<meta name="description" content="Example self-review sections for frontend engineers: impact, collaboration and growth around performance, accessibility and shared components. Phrases that land, and how to pull your evidence from git.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-examples-frontend-engineer.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/self-review-examples-frontend-engineer.html">
+<meta property="og:title" content="Self-review examples for frontend engineers">
+<meta property="og:description" content="Impact, collaboration and growth sections written for frontend work: performance, accessibility and shared components.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Self-review examples for frontend engineers",
+  "description": "Example self-review sections for frontend engineers: impact, collaboration and growth around performance, accessibility and shared components. Phrases that land, and how to pull your evidence from git.",
+  "datePublished": "2026-11-10",
+  "dateModified": "2026-11-10",
+  "inLanguage": "en",
+  "image": "https://dmaulikr.github.io/sill-site/og.png",
+  "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/self-review-examples-frontend-engineer.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sill",
+    "url": "https://dmaulikr.github.io/sill-site/"
+  }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Guide · Self-reviews</div>
+<h1>Self-review examples for frontend engineers.</h1>
+<p>Frontend work is visible, which cuts both ways. Everyone sees the new screen, so it's tempting to list screens and stop. Reviewers want the layer under the screens: was it fast, could everyone use it, and did you leave the codebase easier for the next feature?</p>
+
+<h2>What reviewers look for in a frontend engineer</h2>
+<ul>
+  <li><strong>What users felt.</strong> Load time, responsiveness, fewer broken states. Real-user numbers beat lab numbers, and lab numbers beat adjectives.</li>
+  <li><strong>Accessibility.</strong> Keyboard paths, screen reader labels, contrast. It's easy to skip, so doing it well shows judgement.</li>
+  <li><strong>Shared foundations.</strong> Components, design tokens and patterns that other people reuse.</li>
+  <li><strong>Partnership with design.</strong> How early you raised constraints, and how many rounds a handoff took.</li>
+  <li><strong>An honest bundle.</strong> Dependencies you added or removed, and why.</li>
+</ul>
+
+<h2>Example: impact</h2>
+<p class="muted">The projects, people and numbers in these examples are made up. Keep the shape and use your own facts.</p>
+<div class="standup">Impact
+• Rebuilt the Recipe App 2.0 web editor on the shared component library. 14 screens moved over, and the editor's CSS shrank by about a third.
+• Brought Largest Contentful Paint on recipe pages from about 3.1 s to 1.9 s on a mid-range Android phone (lab test), by lazy-loading images and splitting the editor out of the main bundle.
+• Fixed 23 issues from the accessibility audit (APP-512). Keyboard and screen reader users can now create and publish a recipe without a mouse.</div>
+<p>The device matters as much as the number. 1.9 s on a fast laptop and 1.9 s on a mid-range phone are different claims.</p>
+
+<h2>Example: collaboration</h2>
+<div class="standup">Collaboration
+• Met Neha (design) weekly while we built the component library. We agreed tokens before code, and most screens needed one round of design QA instead of three.
+• Wrote "Adding a component", a two-page guide. Two new joiners shipped their first component from it without pairing.
+• Reviewed the Sync SDK team's front-end pull requests for the sync status indicator, so it matches the rest of the app.</div>
+
+<h2>Example: growth</h2>
+<div class="standup">Growth
+• Learned to profile with the browser's performance panel instead of guessing. The paint-time work above started there.
+• Made my first cross-team decision: replacing our date library. I wrote the comparison, Ravi pushed back on bundle size, and we picked the smaller option.
+• Next half: performance budgets in CI, so a regression fails a build instead of reaching users.</div>
+
+<h2>Phrases that land</h2>
+<ul>
+  <li>"Keyboard users can now…": a capability someone gained.</li>
+  <li>"from 3.1 s to 1.9 s on a mid-range phone": number, before, after, and the device.</li>
+  <li>"Removed 9 one-off button styles": deletions count, and reviewers notice them.</li>
+  <li>"one round of design QA instead of three": collaboration written as an outcome.</li>
+</ul>
+
+<h2>Phrases that don't</h2>
+<ul>
+  <li>"Pixel-perfect implementation." Reviewers already assume you matched the design.</li>
+  <li>"Made the UI better." Better for whom, and measured how?</li>
+  <li>"Worked closely with design." Everyone writes it. Say what changed because of it.</li>
+  <li>"Built 14 screens." That's output. Say what the screens let people do.</li>
+</ul>
+
+<h2>Gather your evidence</h2>
+<p>Filter your history to the folders you own. This shows your commits to components and pages over six months, with dates:</p>
+<div class="standup">git log --since="6 months ago" --author="$(git config user.email)" --no-merges \
+  --date=short --format='%ad %s' -- src/components src/pages</div>
+<p>Change the paths to match your repo. Then collect what git can't hold: before and after screenshots, performance reports from the lab and from real users, the accessibility audit with what you closed from it, and the design files your work matched.</p>
+
+<hr>
+<h2>Let Sill keep the record</h2>
+<p>Front-end wins pile up as small commits across many weeks, and that's exactly what memory drops first. Sill keeps the record while you work. On the Mac it reads your local git history (commit messages and times, never code). On every device it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span>.</p>
+<p>At review time, Sill Pro's Review generator turns months of that into a draft per project: what shipped, commit counts and ticket IDs, and every dependency you waited on. Where Apple Intelligence is available it writes a first-person draft on the device, and nothing leaves it. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?pt=128885861&amp;ct=review-frontend-engineer&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+<p class="muted">More self-review examples: <a href="self-review-examples-backend-engineer.html">backend engineers</a> · <a href="self-review-examples-ios-engineer.html">iOS engineers</a> · <a href="self-review-examples-android-engineer.html">Android engineers</a> · <a href="self-review-examples-qa-engineer.html">QA engineers</a> · <a href="self-review-examples-sre-devops.html">SRE and DevOps engineers</a> · <a href="self-review-examples-data-engineer.html">data engineers</a> · <a href="self-review-examples-engineering-manager.html">engineering managers</a> · <a href="self-review-examples-product-designer.html">product designers</a> · <a href="self-review-examples-product-manager.html">product managers</a>. Or start with <a href="self-review-examples.html">how to write a self-review</a>.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+</body>
+</html>
