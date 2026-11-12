@@ -13,6 +13,7 @@
 ## Free tools
 
 - [Standup generator from git log](https://dmaulikr.github.io/sill-site/standup-generator.html): paste git log output, add today's plan and blockers, copy a standup formatted for Slack, Microsoft Teams, Jira or plain text. Drops merge commits and conventional-commit prefixes, keeps ticket IDs, groups multi-repo output by repo. Runs in the browser; nothing is uploaded.
+- [Self-review generator](https://dmaulikr.github.io/sill-site/self-review-generator.html): paste a brag doc, notes or commit messages and get a self-review draft sorted into Impact, Collaboration and Growth, with reminders where a line needs a before-and-after or a clearer owner. Runs in the browser; nothing is uploaded and no AI is used.
 
 ## Guides
 

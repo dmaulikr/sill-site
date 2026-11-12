@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Self-review generator: turn your brag doc into a draft (free) — Sill</title>
+<meta name="description" content="Paste what you did this half, one line per item, and get a self-review draft sorted into Impact, Collaboration and Growth, with a reminder on every line that still needs a number. Runs in your browser; nothing is uploaded.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/self-review-generator.html">
+<meta property="og:title" content="Self-review generator: turn your brag doc into a draft">
+<meta property="og:description" content="Paste what you did, one line per item. Get a draft sorted into Impact, Collaboration and Growth, with reminders where a line needs a number. Nothing is uploaded.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Self-review generator",
+  "url": "https://dmaulikr.github.io/sill-site/self-review-generator.html",
+  "description": "Paste your accomplishments or brag doc, one line per item, and get a self-review draft sorted into Impact, Collaboration and Growth, with reminders on lines that need a before-and-after number. Runs in the browser; nothing is uploaded.",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any",
+  "browserRequirements": "Requires JavaScript",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "publisher": { "@type": "Organization", "name": "Sill", "url": "https://dmaulikr.github.io/sill-site/" }
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Free tool · Self-reviews</div>
+<h1>Self-review generator.</h1>
+<p>Paste what you did this review period, one line per item. A brag doc, a list from your notes, or commit messages all work. You get a draft sorted into <strong>Impact</strong>, <strong>Collaboration</strong> and <strong>Growth</strong>, with a reminder on every line that still needs a before-and-after.</p>
+<p><strong>It runs in your browser.</strong> Nothing you paste is uploaded, saved or tracked. There's no AI here either: it sorts and tidies your own words, so every claim stays yours.</p>
+
+<div class="tool" id="tool">
+  <div class="row">
+    <label for="role">Role</label>
+    <select id="role">
+      <option value="">Any role</option>
+      <option value="backend-engineer">Backend engineer</option>
+      <option value="frontend-engineer">Frontend engineer</option>
+      <option value="ios-engineer">iOS engineer</option>
+      <option value="android-engineer">Android engineer</option>
+      <option value="qa-engineer">QA engineer</option>
+      <option value="sre-devops">SRE / DevOps engineer</option>
+      <option value="data-engineer">Data engineer</option>
+      <option value="engineering-manager">Engineering manager</option>
+      <option value="product-designer">Product designer</option>
+      <option value="product-manager">Product manager</option>
+    </select>
+    <label for="period">Period</label>
+    <select id="period"></select>
+  </div>
+  <label for="wins">What you did (one item per line)</label>
+  <textarea id="wins" rows="10" spellcheck="true" autocomplete="off" placeholder="Shipped offline sync for Recipe App 2.0, failed saves down from 4.1% to 0.6%&#10;Mentored Neha through her first on-call rotation&#10;Learned SwiftData and moved settings off Core Data"></textarea>
+  <div class="row">
+    <button type="button" class="button quiet" id="sample">Try a sample</button>
+    <button type="button" class="button quiet" id="clear">Clear</button>
+  </div>
+  <label for="miss">One thing that didn't go to plan, and what you changed (optional)</label>
+  <textarea id="miss" rows="2" spellcheck="true" placeholder="The first sync rollout went to everyone at once; two crash reports later, I moved us to staged rollouts"></textarea>
+  <label for="next">What you want to own next period (optional, one per line)</label>
+  <textarea id="next" rows="2" spellcheck="true" placeholder="Own the Sync SDK release process"></textarea>
+  <div class="row">
+    <label for="format">Format</label>
+    <select id="format">
+      <option value="plain">Plain text (Docs, Word, review tools)</option>
+      <option value="markdown">Markdown</option>
+    </select>
+    <label><input type="checkbox" id="hints" checked> Keep reminders in the draft</label>
+  </div>
+  <label for="output">Your draft</label>
+  <textarea id="output" rows="14" readonly spellcheck="false" placeholder="Paste what you did above and your draft appears here."></textarea>
+  <div class="row">
+    <button type="button" class="button" id="copy">Copy draft</button>
+    <span class="muted" id="status" role="status" aria-live="polite"></span>
+  </div>
+  <p class="muted" id="summary"></p>
+  <p id="rolelink"></p>
+</div>
+<noscript><p>The generator needs JavaScript. The guide to <a href="self-review-examples.html">writing a self-review</a> works without it.</p></noscript>
+
+<h2>How it sorts your lines</h2>
+<ul>
+  <li><strong>Collaboration</strong> takes lines about people: mentoring, onboarding, reviews, interviews, design docs, leading or unblocking others.</li>
+  <li><strong>Growth</strong> takes lines about learning: courses, new tools, conferences, things you picked up.</li>
+  <li><strong>Impact</strong> takes everything else: what you shipped, fixed, sped up or made more reliable.</li>
+  <li><strong>Got it wrong?</strong> Start a line with <code>impact:</code>, <code>collab:</code> or <code>growth:</code> to put it where you want.</li>
+  <li><strong>Commit messages are tidied.</strong> Bullets, merge commits and prefixes such as <code>feat:</code> and <code>fix(sync):</code> are removed. Ticket IDs stay.</li>
+</ul>
+
+<h2>What the reminders mean</h2>
+<ul>
+  <li><strong>[add the before and after]</strong> means the line has no number or visible change yet. "From 22 to 9 minutes" beats "much faster". If there's no number, describe a change someone could see.</li>
+  <li><strong>[say which part was yours]</strong> means the line starts with "we". Keep "we" for the team and "I" for your part.</li>
+  <li><strong>[say what changed]</strong> means the line starts with "worked on" or "helped with", which says you were there but not what happened.</li>
+</ul>
+<p>Leave reminders on while you edit, then untick the box and copy a clean draft. For finished examples, see <a href="self-review-examples.html">how to write a self-review, with examples for 10 roles</a>.</p>
+
+<h2>Where this falls short</h2>
+<p>A generator can only sort what you remember, and most people remember the last month of a six-month period. The work that slips is the quiet kind: the outage you prevented, the review that saved a week, the dependency you chased for days.</p>
+<p><strong>Sill</strong> keeps that record as you go. It logs the tasks you finish, your releases and the blockers you resolved, with receipts like <span class="receipt">day 6, asked 3×</span>, and on the Mac it reads your local git history (commit messages and times, never your code). When review season comes, <strong>Sill Pro</strong> drafts your self-review from months of that record, grouped by project, on your device, using Apple Intelligence where available.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?ppid=03d199f5-104e-4bdb-9247-d8a585abc566&amp;pt=128885861&amp;ct=tool-review&amp;mt=8">Get Sill on the App Store</a>. It's free for Mac, iPhone, iPad and Apple Watch, including the daily standup and the set-time reminder. Sill Pro is an optional paid upgrade. No account, no server, no analytics.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="self-review-generator.html">Self-review generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+<script>
+/* sill-review:start */
+var R_CONVENTIONAL = /^(?:feat|fix|chore|refactor|docs|test|perf|build|ci|style)(?:\([^)]*\))?!?\s*:\s*/i;
+var R_MERGE = /^(?:Merge (?:branch|branches|remote-tracking branch|pull request|tag|commit)\b|Merge ['"]|Merged in |Merged PR \d+)/i;
+var R_TICKET = /\b[A-Z][A-Z0-9]+-\d+\b/g;
+var R_FORCE = /^(impact|collab(?:oration)?|growth)\s*:\s*/i;
+var R_COLLAB = /\b(?:mentor(?:ed|ing)?|onboard(?:ed|ing)?|interview(?:ed|ing|s)?|pair(?:ed|ing)|code reviews?|reviewed|reviewing|helped|unblock(?:ed|ing)?|coach(?:ed|ing)?|taught|teach(?:ing)?|led|lead|leading|coordinat(?:ed|ing)|partner(?:ed|ing)|design docs?|rfcs?|documented|documentation|wrote the (?:guide|doc|docs|runbook|playbook)|runbooks?|presented|demo(?:ed)?|talks?|workshops?|hiring|hired|knowledge|across (?:\d+|two|three|four|five|several) teams|with (?:the )?[\w-]+ team)\b/i;
+var R_GROWTH = /\b(?:learn(?:ed|t|ing)?|courses?|certif(?:ied|ication|icate)|stud(?:ied|y)|conferences?|picked up|got better at|improved my|new to|for the first time|first time|grew)\b/i;
+var R_MEASURE = new RegExp([
+  '\\d+(?:[.,]\\d+)?\\+?\\s?(?:%|x\\b|×|ms\\b|s\\b|sec|seconds?|mins?\\b|minutes?|hours?|hrs?\\b|days?|weeks?|months?|k\\b|users?|customers?|teams?|people|engineers?|devs?|tickets?|bugs?|crashes|tests?|prs?\\b|pull requests?|pages?|screens?|releases?|incidents?|alerts?|points?|services?|repos?|endpoints?|queries|requests?|builds?|downloads?|installs?)',
+  '\\bfrom\\b[^\\n]*\\d[^\\n]*\\bto\\b[^\\n]*\\d',
+  '\\d[^\\n]*(?:→|->)[^\\n]*\\d',
+  '\\b(?:cut|reduced|increased|grew|saved|dropped|raised|lowered|halved|doubled|tripled|removed|closed|fixed|shipped|resolved|migrated|automated)\\b[^\\n]*\\b\\d+'
+].join('|'), 'i');
+var R_WE = /^we\b/i;
+var R_VAGUE = /^(?:worked on|helped with|was involved in|involved in|participated in|assisted with|contributed to|supported)\b/i;
+
+var HINT_NUMBER = '[add the before and after]';
+var HINT_WE = '[say which part was yours]';
+var HINT_VAGUE = '[say what changed]';
+
+function capitaliseFirst(s) {
+  return /^[a-z]/.test(s) ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+}
+
+// Tidies one pasted line; returns '' for lines to drop.
+function tidyLine(raw) {
+  var s = String(raw || '').replace(/^\|[|\\\/\s]*/, '').trim();
+  s = s.replace(/^(?:[*\-•+–]\s+|\d+[.)]\s+)+/, '').trim();
+  s = s.replace(/^\[[ xX]\]\s+/, '').trim();
+  if (!s) return '';
+  if (/^[0-9a-f]{7,40}\s+\S/.test(s)) s = s.replace(/^[0-9a-f]{7,40}\s+/, '').replace(/^\([^)]*\)\s+/, '');
+  if (R_MERGE.test(s)) return '';
+  var force = s.match(R_FORCE);
+  var prefix = force ? force[0] : '';
+  if (force) s = s.slice(prefix.length);
+  s = s.replace(R_CONVENTIONAL, '');
+  var t = s.match(/^([A-Z][A-Z0-9]+-\d+)(:?\s+)(.*)$/);
+  if (t) s = t[1] + t[2] + capitaliseFirst(t[3].replace(R_CONVENTIONAL, '').trim());
+  else s = capitaliseFirst(s.trim());
+  s = s.replace(/[.;,]+$/, '');
+  return s ? prefix + s : '';
+}
+
+function sectionFor(line) {
+  var f = line.match(R_FORCE);
+  if (f) {
+    var k = f[1].toLowerCase();
+    return k.indexOf('collab') === 0 ? 'collab' : k;
+  }
+  if (R_GROWTH.test(line)) return 'growth';
+  if (R_COLLAB.test(line)) return 'collab';
+  return 'impact';
+}
+
+function hintsFor(line, section) {
+  var hints = [];
+  if (R_WE.test(line)) hints.push(HINT_WE);
+  if (R_VAGUE.test(line)) hints.push(HINT_VAGUE);
+  var bare = line.replace(R_TICKET, '');
+  if (section === 'impact' && !R_MEASURE.test(bare)) hints.push(HINT_NUMBER);
+  return hints;
+}
+
+function splitLines(text) {
+  return String(text || '').replace(/\r\n?/g, '\n').split('\n');
+}
+
+// Returns { impact, collab, growth: [{ text, hints }], next: [..], miss, counts }.
+function buildReview(winsText, missText, nextText) {
+  var out = { impact: [], collab: [], growth: [], next: [], miss: '', counts: { items: 0, dropped: 0, needNumber: 0, we: 0, vague: 0, duplicates: 0 } };
+  var seen = {};
+  splitLines(winsText).forEach(function (raw) {
+    if (!String(raw).trim()) return;
+    var line = tidyLine(raw);
+    if (!line) { out.counts.dropped++; return; }
+    var section = sectionFor(line);
+    var text = line.replace(R_FORCE, '');
+    text = capitaliseFirst(text);
+    var key = text.toLowerCase();
+    if (seen[key]) { out.counts.duplicates++; return; }
+    seen[key] = true;
+    var hints = hintsFor(text, section);
+    out[section].push({ text: text, hints: hints });
+    out.counts.items++;
+    if (hints.indexOf(HINT_NUMBER) >= 0) out.counts.needNumber++;
+    if (hints.indexOf(HINT_WE) >= 0) out.counts.we++;
+    if (hints.indexOf(HINT_VAGUE) >= 0) out.counts.vague++;
+  });
+  out.miss = tidyLine(String(missText || '').replace(/\n+/g, ' '));
+  splitLines(nextText).forEach(function (raw) {
+    var line = tidyLine(raw);
+    if (line) out.next.push(line);
+  });
+  return out;
+}
+
+function formatReview(review, opts) {
+  var md = opts.format === 'markdown';
+  var hints = opts.hints;
+  var head = function (t) { return md ? '## ' + t : t; };
+  var bullet = md ? '- ' : '• ';
+  var line = function (item) {
+    return bullet + item.text + (hints && item.hints.length ? ' ' + item.hints.join(' ') : '');
+  };
+  var out = [];
+  var title = 'Self-review' + (opts.roleName ? ', ' + opts.roleName : '') + (opts.period ? ' · ' + opts.period : '');
+  out.push(md ? '# ' + title : title, '');
+  if (!review.counts.items && !review.miss && !review.next.length) return '';
+
+  out.push(head('Summary'));
+  var lead = review.impact[0] || review.collab[0] || review.growth[0];
+  var summary = 'This period I focused on [the theme of your period].';
+  if (lead) summary += ' The result I\'m proudest of: ' + lead.text.charAt(0).toLowerCase() + lead.text.slice(1) + '.';
+  out.push(summary, '');
+
+  out.push(head('Impact'));
+  if (review.impact.length) review.impact.forEach(function (it) { out.push(line(it)); });
+  else out.push(bullet + '[What changed because of your work: for users, the team or the business]');
+  out.push('');
+
+  out.push(head('Collaboration'));
+  if (review.collab.length) review.collab.forEach(function (it) { out.push(line(it)); });
+  else out.push(bullet + '[One example of making someone else faster or better]');
+  out.push('');
+
+  out.push(head('Growth'));
+  review.growth.forEach(function (it) { out.push(line(it)); });
+  if (review.miss) out.push(bullet + 'What didn\'t go to plan: ' + review.miss.charAt(0).toLowerCase() + review.miss.slice(1) + '.');
+  else if (hints) out.push(bullet + '[One thing that didn\'t go to plan, and what you changed]');
+  if (!review.growth.length && !review.miss && !hints) out.push(bullet + '[What you learned this period]');
+  out.push('');
+
+  out.push(head('Next period'));
+  if (review.next.length) review.next.forEach(function (n) { out.push(bullet + n); });
+  else out.push(bullet + '[What you want to own next]');
+
+  return out.join('\n').replace(/\n+$/, '');
+}
+/* sill-review:end */
+
+(function () {
+  var el = function (id) { return document.getElementById(id); };
+  var wins = el('wins'), miss = el('miss'), next = el('next');
+  var role = el('role'), period = el('period'), format = el('format'), hints = el('hints');
+  var output = el('output'), status = el('status'), summary = el('summary'), rolelink = el('rolelink');
+  if (!wins) return;
+
+  var now = new Date(), y = now.getFullYear(), half = now.getMonth() < 6 ? 1 : 2;
+  var periods = [];
+  if (half === 2) periods.push('H2 ' + y, y + ' (full year)', 'H1 ' + y);
+  else periods.push('H1 ' + y, 'H2 ' + (y - 1), (y - 1) + ' (full year)');
+  periods.push('This quarter', '');
+  periods.forEach(function (p) {
+    var o = document.createElement('option');
+    o.value = p; o.textContent = p || 'No period';
+    period.appendChild(o);
+  });
+
+  var SAMPLE = [
+    'Shipped offline sync for Recipe App 2.0, failed saves down from 4.1% to 0.6%',
+    '* feat(sync): SYNC-142 retry failed uploads with backoff',
+    'Led the Sync SDK 3.0 migration across 4 teams',
+    'Fixed the crash on launch for older devices',
+    "* Merge branch 'main' into sync-retry",
+    'Cut CI time from 22 to 9 minutes by caching the build',
+    'Mentored Neha through her first on-call rotation',
+    'Reviewed 120+ pull requests',
+    'We moved the recipe images to the new CDN',
+    'Worked on the conflict resolution design',
+    'Learned SwiftData and moved settings off Core Data'
+  ].join('\n');
+
+  function plural(n, word) { return n + ' ' + word + (n === 1 ? '' : 's'); }
+
+  function render() {
+    var review = buildReview(wins.value, miss.value, next.value);
+    var opt = role.options[role.selectedIndex];
+    output.value = formatReview(review, {
+      format: format.value, hints: hints.checked,
+      roleName: role.value ? opt.textContent : '', period: period.value
+    });
+    output.style.height = 'auto';
+    output.style.height = Math.max(output.scrollHeight + 2, 220) + 'px';
+    status.textContent = '';
+    var c = review.counts;
+    if (!c.items) { summary.textContent = ''; }
+    else {
+      var bits = [plural(c.items, 'item') + ': ' + review.impact.length + ' impact, ' + review.collab.length + ' collaboration, ' + review.growth.length + ' growth'];
+      if (c.needNumber) bits.push(c.needNumber + ' still need a before and after');
+      if (c.we) bits.push(c.we + ' say "we"');
+      if (c.vague) bits.push(c.vague + ' say what you did but not what changed');
+      if (c.dropped) bits.push(plural(c.dropped, 'merge commit') + ' dropped');
+      if (c.duplicates) bits.push(plural(c.duplicates, 'duplicate') + ' removed');
+      summary.textContent = bits.join(' · ') + '.';
+    }
+    rolelink.innerHTML = '';
+    if (role.value) {
+      var a = document.createElement('a');
+      a.href = 'self-review-examples-' + role.value + '.html';
+      a.textContent = 'Finished self-review examples for ' + opt.textContent.toLowerCase().replace(/^ios/, 'iOS').replace(/^qa/, 'QA').replace(/^sre/, 'SRE').replace('devops', 'DevOps') + 's →';
+      rolelink.appendChild(a);
+    }
+  }
+
+  function copied(ok) {
+    status.textContent = ok ? 'Copied.' : 'Select the text and copy it (⌘C or Ctrl+C).';
+  }
+
+  function fallbackCopy() {
+    var ok = false;
+    output.focus();
+    output.select();
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    copied(ok);
+  }
+
+  function copy() {
+    if (!output.value) { status.textContent = 'Nothing to copy yet.'; return; }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(output.value).then(function () { copied(true); }, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  }
+
+  [wins, miss, next].forEach(function (x) { x.addEventListener('input', render); });
+  [role, period, format, hints].forEach(function (x) { x.addEventListener('change', render); });
+  el('sample').addEventListener('click', function () {
+    wins.value = SAMPLE;
+    if (!miss.value.trim()) miss.value = 'The first sync rollout went to everyone at once; after two crash reports I moved us to staged rollouts';
+    if (!next.value.trim()) next.value = 'Own the Sync SDK release process\nRun one cross-team design review a month';
+    if (!role.value) role.value = 'ios-engineer';
+    render();
+  });
+  el('clear').addEventListener('click', function () {
+    wins.value = ''; miss.value = ''; next.value = '';
+    render();
+    wins.focus();
+  });
+  el('copy').addEventListener('click', copy);
+  render();
+})();
+</script>
+</body>
+</html>
