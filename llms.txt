@@ -18,6 +18,7 @@
 ## Guides
 
 - [Write your standup from git log, in one command](https://dmaulikr.github.io/sill-site/git-standup.html)
+- [Brag doc template for developers, with a filled-in example](https://dmaulikr.github.io/sill-site/brag-doc-template.html)
 - [12 daily standup examples for developers](https://dmaulikr.github.io/sill-site/standup-examples.html)
 - [How to follow up when another team is blocking you](https://dmaulikr.github.io/sill-site/follow-up-templates.html)
 - [Standup bots vs Sill: Geekbot, Standuply and Range compared](https://dmaulikr.github.io/sill-site/standup-bots-vs-sill.html)

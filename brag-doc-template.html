@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Brag doc template for developers, with a filled-in example — Sill</title>
+<meta name="description" content="A free brag doc template you can copy into any notes app, a filled-in example for a software engineer, and how to keep it up in five minutes a week so your self-review writes itself.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/brag-doc-template.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/brag-doc-template.html">
+<meta property="og:title" content="Brag doc template for developers, with a filled-in example">
+<meta property="og:description" content="Copy the template, see a filled-in example, and keep it up in five minutes a week.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Brag doc template for developers, with a filled-in example",
+      "description": "A free brag doc template you can copy into any notes app, a filled-in example for a software engineer, and how to keep it up in five minutes a week.",
+      "datePublished": "2026-11-12",
+      "dateModified": "2026-11-12",
+      "inLanguage": "en",
+      "image": "https://dmaulikr.github.io/sill-site/og.png",
+      "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/brag-doc-template.html",
+      "author": { "@type": "Organization", "name": "Sill", "url": "https://dmaulikr.github.io/sill-site/" },
+      "publisher": { "@type": "Organization", "name": "Sill", "url": "https://dmaulikr.github.io/sill-site/" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a brag doc?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A brag doc is a running list of the work you did, written as it happens: what you shipped, what changed because of it, who you helped and what you learned. At review time you start from evidence instead of memory." }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I update a brag doc?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Add a line the day something happens, and spend five minutes at the end of each week filling in numbers and links. Monthly is the slowest pace that still works; after that you start forgetting the early wins." }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I share my brag doc with my manager?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Share a tidy version before reviews, promotion talks or a change of manager. Keep the raw doc private so you can write freely, including the things that didn't work." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Template · Brag doc</div>
+<h1>Brag doc template for developers.</h1>
+<p>A brag doc is a running list of the work you did, written as it happens. It's not for showing off. It's for the week your self-review is due, when you remember the last month and forget the first five.</p>
+<p>Copy the template below into whatever you already use for notes. One line per thing, added the day it happens.</p>
+
+<h2>The template</h2>
+<div class="standup" id="template">Brag doc · [your name] · [period, e.g. H2 2026]
+
+Goals for this period
+• [what you and your manager agreed you'd focus on]
+
+Shipped
+• [what] — [what changed, before → after] — [link to PR, ticket or doc]
+
+Fixed and improved
+• [incident, bug, slow build, flaky test] — [what you did] — [result]
+
+Helped others
+• [who] — [how: review, pairing, onboarding, unblocking] — [what it led to]
+
+Decisions and design
+• [decision] — [options you weighed] — [why this one]
+
+Learned
+• [skill or system] — [where you used it]
+
+Recognition
+• [kudos, thank-you note or shout-out, with date and who said it]
+
+Didn't go to plan
+• [what happened] — [what you changed afterwards]
+
+Waiting on
+• [what you need] — [from whom] — [asked on: date, times asked]</div>
+<div class="row">
+  <button type="button" class="button" id="copy">Copy template</button>
+  <span class="muted" id="status" aria-live="polite"></span>
+</div>
+
+<h2>A filled-in example</h2>
+<p>Half a year for an iOS engineer, cut down to a few lines per section. The project, people and numbers are made up.</p>
+<div class="standup">Shipped
+• Offline sync for Recipe App 2.0 — failed saves 4.1% → 0.6% — SYNC-142
+• Moved recipe images to the new CDN — first image load 1.8 s → 0.7 s on 4G
+
+Fixed and improved
+• Crash on launch for older devices — found the migration bug, added a test — crash-free users 99.1% → 99.7%
+• CI build 22 → 9 minutes by caching dependencies
+
+Helped others
+• Neha — paired through her first on-call week — she ran the next incident on her own
+• Reviewed 120+ pull requests, mostly Sync SDK
+
+Decisions and design
+• Staged rollouts for sync changes — weighed feature flags vs. phased release — phased release needs no extra code
+
+Recognition
+• Ravi, 14 Aug: "the sync migration was the calmest launch we've had"
+
+Didn't go to plan
+• First sync rollout went to everyone at once; after two crash reports I moved us to staged rollouts
+
+Waiting on
+• Server team: retry header for uploads — asked 3 Sep, 10 Sep, 17 Sep</div>
+
+<h2>Keep it up in five minutes a week</h2>
+<ol>
+  <li><strong>Write the line the same day.</strong> Half a sentence is enough. You can tidy it on Friday.</li>
+  <li><strong>Add the number on Friday.</strong> Look up the before and after while the dashboard still shows it. "Faster" won't survive review week; "22 → 9 minutes" will.</li>
+  <li><strong>Link the evidence.</strong> A PR, ticket or doc next to each line saves an hour of searching later.</li>
+  <li><strong>Keep the misses.</strong> One honest "didn't go to plan" line reads as judgement, and you'll want it for the growth section.</li>
+  <li><strong>Note who you helped.</strong> It's the part of your work that leaves the least trace in tools.</li>
+</ol>
+
+<h2>What doesn't belong</h2>
+<p>Meetings you attended, tasks with no outcome yet, and anything you'd be uncomfortable reading aloud to the person it's about. If a line only says you were near the work ("worked on", "involved in"), rewrite it as what you did and what changed.</p>
+
+<h2>From brag doc to self-review</h2>
+<p>When the review is due, paste your lines into the free <a href="self-review-generator.html">self-review generator</a>. It sorts them into impact, collaboration and growth and marks every line that still needs a before and after. For the shape reviewers look for in your role, see <a href="self-review-examples.html">self-review examples for 10 roles</a>.</p>
+
+<h2>Or let it keep itself</h2>
+<p><strong>Sill</strong> keeps this record as you work. On the Mac it reads your local git history (commit messages and times, never code). On iPhone, iPad and Mac it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span> for the things you're waiting on. Sill Pro's Review generator turns months of it into a draft per project, and where Apple Intelligence is available it writes the draft on the device. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?ppid=03d199f5-104e-4bdb-9247-d8a585abc566&amp;pt=128885861&amp;ct=brag-doc&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="self-review-generator.html">Self-review generator</a> · <a href="brag-doc-template.html">Brag doc template</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var status = document.getElementById('status');
+  var text = document.getElementById('template').textContent;
+  function done(ok) { status.textContent = ok ? 'Copied.' : 'Select the template and copy it.'; }
+  function fallbackCopy() {
+    var t = document.createElement('textarea');
+    t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(t); done(ok);
+  }
+  btn.addEventListener('click', function () {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
+})();
+</script>
+</body>
+</html>
