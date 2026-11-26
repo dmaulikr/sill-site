@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Year-end review template for developers, with an example — Sill</title>
+<meta name="description" content="A free year-end self-review template for software engineers, a filled-in example, two git commands that rebuild your year in a minute, and a 30-minute plan to write it.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://dmaulikr.github.io/sill-site/year-end-review-template.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://dmaulikr.github.io/sill-site/year-end-review-template.html">
+<meta property="og:title" content="Year-end review template for developers, with an example">
+<meta property="og:description" content="Copy the template, rebuild your year from git in a minute, and write the review in 30 minutes.">
+<meta property="og:image" content="https://dmaulikr.github.io/sill-site/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6823163147">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Year-end review template for developers, with an example",
+      "description": "A free year-end self-review template for software engineers, a filled-in example, two git commands that rebuild your year, and a 30-minute plan to write it.",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "inLanguage": "en",
+      "image": "https://dmaulikr.github.io/sill-site/og.png",
+      "mainEntityOfPage": "https://dmaulikr.github.io/sill-site/year-end-review-template.html",
+      "author": { "@type": "Organization", "name": "Sill", "url": "https://dmaulikr.github.io/sill-site/" },
+      "publisher": { "@type": "Organization", "name": "Sill", "url": "https://dmaulikr.github.io/sill-site/" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What should a developer put in a year-end self-review?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Three to five headline results with a before and after, the work that made others faster, what you learned and where you used it, one thing that didn't go to plan and what you changed, and your goals for next year. Link each line to a PR, ticket or doc." }
+        },
+        {
+          "@type": "Question",
+          "name": "How long should a year-end review be?",
+          "acceptedAnswer": { "@type": "Answer", "text": "One page. Reviewers read many of them; a few specific lines with numbers beat a long list of tasks. Keep the full record in a brag doc and pick the strongest items for the review." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I remember what I did in January?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Start from evidence, not memory: your git history, closed tickets, merged pull requests, your calendar and your brag doc. A single git log command lists every commit you made this year by month." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<nav class="nav">
+  <span class="brand"><a href="index.html">Sill</a></span>
+  <span class="links"><a href="standup-examples.html">Examples</a><a href="git-standup.html">Git</a><a href="standup-generator.html">Tool</a><a href="self-review-examples.html">Reviews</a><a href="support.html">Support</a></span>
+</nav>
+<main class="page">
+<div class="label">Template · Year-end review</div>
+<h1>Year-end review template for developers.</h1>
+<p>The year-end review is the one where memory fails hardest. You remember the last six weeks in detail and January as a blur, so the review ends up describing November.</p>
+<p>The fix is to start from evidence. Rebuild the year from git first, then fill in the template below. Thirty minutes is enough.</p>
+
+<h2>Step 1: rebuild your year from git (1 minute)</h2>
+<p>Run these in each repository you worked in this year. They read commit messages and dates only.</p>
+<p class="muted">Every commit you made this year, oldest first:</p>
+<div class="standup">git log --since="2026-01-01" --author="$(git config user.email)" --no-merges --reverse --date=short --pretty=format:"%ad  %s"</div>
+<p class="muted">How many commits per month, to spot your busiest stretches:</p>
+<div class="standup">git log --since="2026-01-01" --author="$(git config user.email)" --no-merges --date=format:"%Y-%m" --pretty=format:"%ad" | sort | uniq -c</div>
+<p>Then add what git doesn't see: closed tickets, design docs, incidents, interviews, onboarding and reviews you gave. A <a href="brag-doc-template.html">brag doc</a> makes this step trivial next year.</p>
+
+<h2>Step 2: the template (copy it)</h2>
+<div class="standup" id="template">Year in review · [your name] · [team] · 2026
+
+Headline results (3–5, strongest first)
+• [what you did] — [before → after] — [link]
+
+Impact on the team and the product
+• [project or area] — [what changed for users or the team]
+
+Helping others
+• [who] — [how: reviews, pairing, onboarding, unblocking] — [what it led to]
+
+Growth
+• [skill or system you learned] — [where you used it]
+
+Didn't go to plan
+• [what happened] — [what you changed afterwards]
+
+Next year
+• [1–3 goals you want your manager's help with]</div>
+<div class="row">
+  <button type="button" class="button" id="copy">Copy template</button>
+  <span class="muted" id="status" aria-live="polite"></span>
+</div>
+
+<h2>A filled-in example</h2>
+<p>A year for a mobile engineer, cut down to one page. The project, people and numbers are made up.</p>
+<div class="standup">Year in review · iOS engineer · Recipe App team · 2026
+
+Headline results
+• Shipped offline sync for Recipe App 2.0 — failed saves 4.1% → 0.6% — SYNC-142
+• Cut CI build time 22 → 9 minutes by caching dependencies
+• Fixed the launch crash on older devices — crash-free users 99.1% → 99.7%
+
+Impact on the team and the product
+• Sync SDK — moved three apps onto one sync layer; new screens now take days, not weeks
+
+Helping others
+• Neha — paired through her first on-call week; she ran the next incident on her own
+• Reviewed 240+ pull requests, mostly Sync SDK
+
+Growth
+• Learned staged rollouts — used them for every sync change since August
+
+Didn't go to plan
+• The first sync rollout went to everyone at once; after two crash reports I moved us to staged rollouts
+
+Next year
+• Lead the Sync SDK 3.0 design with Ravi
+• Mentor one new engineer through their first launch</div>
+
+<h2>Step 3: write it in 30 minutes</h2>
+<ol>
+  <li><strong>10 minutes: list.</strong> From the git log and your tickets, write one line per thing you shipped or fixed. Don't judge yet.</li>
+  <li><strong>10 minutes: pick and measure.</strong> Choose the 3–5 lines that changed the most. Add the before and after for each; a dashboard, the ticket or the PR description usually has it.</li>
+  <li><strong>5 minutes: the people.</strong> Add who you helped and how. It's the part of the year that leaves the least trace in tools.</li>
+  <li><strong>5 minutes: honest and forward.</strong> One line that didn't go to plan, and up to three goals for next year.</li>
+</ol>
+<p>Want the lines sorted for you? Paste your list into the free <a href="self-review-generator.html">self-review generator</a>. It groups lines into impact, collaboration and growth and marks every line still missing a number. For what reviewers look for in your role, see <a href="self-review-examples.html">self-review examples for 10 roles</a>.</p>
+
+<h2>What to leave out</h2>
+<p>Meetings you attended, work that isn't finished, and anything you'd be uncomfortable reading aloud to the person it's about. Replace "worked on" and "involved in" with what you did and what changed.</p>
+
+<h2>Or let your year write itself down</h2>
+<p><strong>Sill</strong> keeps this record as you work. On the Mac it reads your local git history (commit messages and times, never code). On iPhone, iPad and Mac it records the tasks you finish, the releases you ship and the follow-ups you send, with receipts like <span class="receipt">day 6, asked 3×</span> for the things you're waiting on. Sill Pro's Review generator turns months of it into a draft per project, and where Apple Intelligence is available it writes the draft on the device. Commits come only from the Mac app. The last 7 days are free; longer periods need Sill Pro, an optional paid upgrade.</p>
+<p><a href="https://apps.apple.com/app/apple-store/id6823163147?ppid=03d199f5-104e-4bdb-9247-d8a585abc566&amp;pt=128885861&amp;ct=year-end&amp;mt=8">Get Sill on the App Store</a> — for Mac, iPhone, iPad and Apple Watch. The daily standup and its set-time reminder are free.</p>
+</main>
+<footer>
+  © 2026 Sill · <a href="standup-generator.html">Standup generator</a> · <a href="git-standup.html">Standup from git</a> · <a href="standup-examples.html">Standup examples</a> · <a href="self-review-examples.html">Self-review examples</a> · <a href="self-review-generator.html">Self-review generator</a> · <a href="brag-doc-template.html">Brag doc template</a> · <a href="year-end-review-template.html">Year-end review template</a> · <a href="follow-up-templates.html">Follow-up templates</a> · <a href="privacy.html">Privacy</a> · <a href="support.html">Support</a>
+</footer>
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var status = document.getElementById('status');
+  var text = document.getElementById('template').textContent;
+  function done(ok) { status.textContent = ok ? 'Copied.' : 'Select the template and copy it.'; }
+  function fallbackCopy() {
+    var t = document.createElement('textarea');
+    t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+    document.body.appendChild(t); t.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(t); done(ok);
+  }
+  btn.addEventListener('click', function () {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
+})();
+</script>
+</body>
+</html>

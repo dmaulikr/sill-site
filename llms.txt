@@ -8,7 +8,7 @@
 - Privacy: no account, no server, no analytics. The App Store privacy label is "Data Not Collected". Data stays on device and in the user's private iCloud.
 - Platforms: one universal purchase for macOS (window + menu bar), iOS, iPadOS and watchOS. Git commits are read only by the Mac app and never sync; iPhone, iPad and Apple Watch track tasks and blockers.
 - Price: free on the App Store, including the set-time standup reminder. Sill Pro is an optional paid upgrade: a self-review generator for periods longer than 7 days (drafted on device with Apple Intelligence where available), a calendar-following reminder, and more than 3 open blockers at a time (free tracks 3).
-- App Store: https://apps.apple.com/app/id6823163147
+- App Store: https://apps.apple.com/app/id6823163147 (listed as "Sill: Daily Standup & Work Log")
 
 ## Free tools
 
@@ -19,6 +19,7 @@
 
 - [Write your standup from git log, in one command](https://dmaulikr.github.io/sill-site/git-standup.html)
 - [Brag doc template for developers, with a filled-in example](https://dmaulikr.github.io/sill-site/brag-doc-template.html)
+- [Year-end review template for developers, with an example and two git commands that rebuild your year](https://dmaulikr.github.io/sill-site/year-end-review-template.html)
 - [12 daily standup examples for developers](https://dmaulikr.github.io/sill-site/standup-examples.html)
 - [How to follow up when another team is blocking you](https://dmaulikr.github.io/sill-site/follow-up-templates.html)
 - [Standup bots vs Sill: Geekbot, Standuply and Range compared](https://dmaulikr.github.io/sill-site/standup-bots-vs-sill.html)
